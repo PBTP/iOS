@@ -71,7 +71,7 @@ let project = Project(
         ),
     ],
     additionalFiles: [
-      "./xcconfigs/green.shared.xcconfig"
+      "./Configs/mongle.shared.xcconfig"
     ]
 )
 
