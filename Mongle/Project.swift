@@ -36,6 +36,7 @@ let project = Project(
             infoPlist: makeInfoPlist(),
             sources: ["\(basePath)/Sources/**"],
             resources: ["\(basePath)/ReSources/**"],
+            scripts: [.SwiftLintString],
             dependencies: [
                 .external(name: "ComposableArchitecture")
             ],
@@ -82,7 +83,7 @@ let project = Project(
                     .debug(name: "MASTER", xcconfig: "./Configs/mongle.master.xcconfig")
                 ]
             )
-        ),
+        )
     ],
     additionalFiles: [
       "./Configs/mongle.shared.xcconfig"
@@ -95,11 +96,11 @@ private func makeInfoPlist(merging other: [String: Plist.Value] = [:]) -> InfoPl
         "UILaunchScreen": [],
         "UISupportedInterfaceOrientations":
             [
-                "UlInterfaceOrientationPortrait",
+                "UlInterfaceOrientationPortrait"
             ],
         "CFBundleShortVersionString": "\(version)",
         "CFBundleVersion": "\(bundleVersion)",
-        "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
+        "CFBundleDisplayName": "$(APP_DISPLAY_NAME)"
     ]
     
     other.forEach { (key: String, value: Plist.Value) in
