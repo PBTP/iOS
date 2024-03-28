@@ -37,7 +37,7 @@ let project = Project(
             sources: ["\(basePath)/Sources/**"],
             resources: ["\(basePath)/ReSources/**"],
             dependencies: [
-                .package(product: "swift-composable-architecture")
+                .external(name: "ComposableArchitecture")
             ],
             settings: .settings(
                 configurations: [
@@ -56,7 +56,7 @@ let project = Project(
             sources: ["\(basePath)/Sources/**"],
             resources: ["\(basePath)/ReSources/**"],
             dependencies: [
-                .package(product: "swift-composable-architecture")
+                .external(name: "ComposableArchitecture")
             ],
             settings: .settings(
                 configurations: [
@@ -75,7 +75,7 @@ let project = Project(
             sources: ["\(basePath)/Sources/**"],
             resources: ["\(basePath)/ReSources/**"],
             dependencies: [
-                .package(product: "swift-composable-architecture")
+                .external(name: "ComposableArchitecture")
             ],
             settings: .settings(
                 configurations: [
