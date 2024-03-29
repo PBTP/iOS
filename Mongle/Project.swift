@@ -11,13 +11,13 @@ private let basePath = "Targets/Mongle"
 
 let project = Project(
     name: appName, // 프로젝트 이름
-    organizationName: bundleId,// org 이름
+    organizationName: bundleId, // org 이름
     options: .options(automaticSchemesOptions: .disabled), // 프로젝트 생성 옵션
     packages: [
         .remote(
             url: "https://github.com/pointfreeco/swift-composable-architecture.git",
             requirement: .upToNextMajor(from: "1.9.0")
-          )
+        )
     ], // swift package 설정
     settings: .settings(
         configurations: [
@@ -86,7 +86,7 @@ let project = Project(
         )
     ],
     additionalFiles: [
-      "./Configs/mongle.shared.xcconfig"
+        "./Configs/mongle.shared.xcconfig"
     ]
 )
 
@@ -102,10 +102,10 @@ private func makeInfoPlist(merging other: [String: Plist.Value] = [:]) -> InfoPl
         "CFBundleVersion": "\(bundleVersion)",
         "CFBundleDisplayName": "$(APP_DISPLAY_NAME)"
     ]
-    
-    other.forEach { (key: String, value: Plist.Value) in
+
+    for (key, value) in other {
         extendedPlist[key] = value
     }
-    
+
     return InfoPlist.extendingDefault(with: extendedPlist)
 }
