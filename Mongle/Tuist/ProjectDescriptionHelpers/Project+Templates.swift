@@ -8,10 +8,10 @@ import ProjectDescription
 extension Project {
     /// Helper function to create the Project for this ExampleApp
     public static func app(name: String, destinations: Destinations, additionalTargets: [String]) -> Project {
-        var targets = makeAppTargets(name: name,
-                                     destinations: destinations,
-                                     dependencies: additionalTargets.map { TargetDependency.target(name: $0) })
-        targets += additionalTargets.flatMap({ makeFrameworkTargets(name: $0, destinations: destinations) })
+        var targets = self.makeAppTargets(name: name,
+                                          destinations: destinations,
+                                          dependencies: additionalTargets.map { TargetDependency.target(name: $0) })
+        targets += additionalTargets.flatMap { self.makeFrameworkTargets(name: $0, destinations: destinations) }
         return Project(name: name,
                        organizationName: "tuist.io",
                        targets: targets)
@@ -22,21 +22,21 @@ extension Project {
     /// Helper function to create a framework target and an associated unit test target
     private static func makeFrameworkTargets(name: String, destinations: Destinations) -> [Target] {
         let sources = Target(name: name,
-                destinations: destinations,
-                product: .framework,
-                bundleId: "io.tuist.\(name)",
-                infoPlist: .default,
-                sources: ["Targets/\(name)/Sources/**"],
-                resources: [],
-                dependencies: [])
+                             destinations: destinations,
+                             product: .framework,
+                             bundleId: "io.tuist.\(name)",
+                             infoPlist: .default,
+                             sources: ["Targets/\(name)/Sources/**"],
+                             resources: [],
+                             dependencies: [])
         let tests = Target(name: "\(name)Tests",
-                destinations: destinations,
-                product: .unitTests,
-                bundleId: "io.tuist.\(name)Tests",
-                infoPlist: .default,
-                sources: ["Targets/\(name)/Tests/**"],
-                resources: [],
-                dependencies: [.target(name: name)])
+                           destinations: destinations,
+                           product: .unitTests,
+                           bundleId: "io.tuist.\(name)Tests",
+                           infoPlist: .default,
+                           sources: ["Targets/\(name)/Tests/**"],
+                           resources: [],
+                           dependencies: [.target(name: name)])
         return [sources, tests]
     }
 
@@ -46,7 +46,7 @@ extension Project {
             "CFBundleShortVersionString": "1.0",
             "CFBundleVersion": "1",
             "UILaunchStoryboardName": "LaunchScreen"
-            ]
+        ]
 
         let mainTarget = Target(
             name: name,
@@ -68,7 +68,8 @@ extension Project {
             sources: ["Targets/\(name)/Tests/**"],
             dependencies: [
                 .target(name: "\(name)")
-        ])
+            ]
+        )
         return [mainTarget, testTarget]
     }
 }
