@@ -23,6 +23,7 @@ public extension TargetScript {
             echo "warning: SwiftLint configuration file ($SWIFTLINT_CONFIG) not found"
         fi
         """,
-        name: "SwiftLintString"
+        name: "SwiftLintString",
+        basedOnDependencyAnalysis: false
     )
 }
