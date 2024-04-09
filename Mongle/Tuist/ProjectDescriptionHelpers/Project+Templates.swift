@@ -1,75 +1,219 @@
+import Foundation
 import ProjectDescription
 
-/// Project helpers are functions that simplify the way you define your project.
-/// Share code to create targets, settings, dependencies,
-/// Create your own conventions, e.g: a func that makes sure all shared targets are "static frameworks"
-/// See https://docs.tuist.io/guides/helpers/
-
-extension Project {
-    /// Helper function to create the Project for this ExampleApp
-    public static func app(name: String, destinations: Destinations, additionalTargets: [String]) -> Project {
-        var targets = self.makeAppTargets(name: name,
-                                          destinations: destinations,
-                                          dependencies: additionalTargets.map { TargetDependency.target(name: $0) })
-        targets += additionalTargets.flatMap { self.makeFrameworkTargets(name: $0, destinations: destinations) }
-        return Project(name: name,
-                       organizationName: "tuist.io",
-                       targets: targets)
-    }
-
-    // MARK: - Private
-
-    /// Helper function to create a framework target and an associated unit test target
-    private static func makeFrameworkTargets(name: String, destinations: Destinations) -> [Target] {
-        let sources = Target(name: name,
-                             destinations: destinations,
-                             product: .framework,
-                             bundleId: "io.tuist.\(name)",
-                             infoPlist: .default,
-                             sources: ["Targets/\(name)/Sources/**"],
-                             resources: [],
-                             dependencies: [])
-        let tests = Target(name: "\(name)Tests",
-                           destinations: destinations,
-                           product: .unitTests,
-                           bundleId: "io.tuist.\(name)Tests",
-                           infoPlist: .default,
-                           sources: ["Targets/\(name)/Tests/**"],
-                           resources: [],
-                           dependencies: [.target(name: name)])
-        return [sources, tests]
-    }
-
-    /// Helper function to create the application target and the unit test target.
-    private static func makeAppTargets(name: String, destinations: Destinations, dependencies: [TargetDependency]) -> [Target] {
-        let infoPlist: [String: Plist.Value] = [
-            "CFBundleShortVersionString": "1.0",
-            "CFBundleVersion": "1",
-            "UILaunchStoryboardName": "LaunchScreen"
-        ]
-
-        let mainTarget = Target(
+public extension Project {
+    static func makeModule(
+        name: String,
+        targets: Set<FeatureTarget> = Set([ .unitTest, .demo]),
+        directoryPath: String = "",
+        packages: [Package] = [],
+        internalDependencies: [TargetDependency] = [],  // 모듈간 의존성
+        externalDependencies: [TargetDependency] = [],  // 외부 라이브러리 의존성
+        dependencies: [TargetDependency] = [],
+        hasResources: Bool = false
+    ) -> Project {
+        
+        let deploymentTarget = Environment.deploymentTarget
+        let platform = Environment.platform
+        var projectTargets: [Target] = []
+        var schemes: [Scheme] = []
+        
+        createSourceDirectory(directoryPath: directoryPath)
+        
+        // MARK: - App
+        
+        if targets.contains(.app) {
+            let bundleSuffix = "demo"
+            let infoPlist = Project.demoInfoPlist
+            
+            let target = Target(
+                name: name,
+                platform: platform,
+                product: .app,
+                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)",
+                deploymentTarget: deploymentTarget,
+                infoPlist: .extendingDefault(with: infoPlist),
+                sources: ["Sources/**/*.swift"],
+                resources: [.glob(pattern: "Resources/**", excluding: [])],
+                entitlements: nil,
+                scripts: [.SwiftLintString],
+                dependencies: [
+                    internalDependencies,
+                    externalDependencies,
+                    [
+                    ]
+                ].flatMap { $0 },
+                settings: nil
+            )
+            
+            projectTargets.append(target)
+        }
+        
+        if targets.contains(.frameWork) {
+            
+            let target = Target(
+                name: name,
+                platform: platform,
+                product: .framework,
+                bundleId: "\(Environment.bundlePrefix).\(name)",
+                deploymentTarget: deploymentTarget,
+                infoPlist: .default,
+                sources: ["Sources/**/*.swift"],
+                resources: hasResources ? [.glob(pattern: "Resources/**", excluding: [])] : [],
+                dependencies: internalDependencies + externalDependencies,
+                settings: nil
+            )
+            
+            projectTargets.append(target)
+        }
+        
+        // MARK: - Feature Executable
+        
+        if targets.contains(.demo) {
+            createDirectoryAtCustomPath(folderName: "Demo", directoryPath: directoryPath)
+            
+            let deps: [TargetDependency] = [.target(name: name)]
+            
+            let target = Target(
+                name: "\(name)Demo",
+                platform: platform,
+                product: .app,
+                bundleId: "\(Environment.bundlePrefix).\(name)Demo",
+                deploymentTarget: deploymentTarget,
+                infoPlist: .extendingDefault(with: Project.demoInfoPlist),
+                sources: ["Demo/Sources/**/*.swift"],
+                resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
+                dependencies: [
+                    deps,
+                    [
+                    ]
+                ].flatMap { $0 },
+                settings: nil
+            )
+            
+            projectTargets.append(target)
+        }
+        
+        // MARK: - Unit Tests
+        
+        if targets.contains(.unitTest) {
+            let deps: [TargetDependency] = [.target(name: name)]
+            
+            let target = Target(
+                name: "\(name)Tests",
+                platform: platform,
+                product: .unitTests,
+                bundleId: "\(Environment.bundlePrefix).\(name)Tests",
+                deploymentTarget: deploymentTarget,
+                infoPlist: .default,
+                sources: ["Tests/Sources/**/*.swift"],
+                resources: [.glob(pattern: "Tests/Resources/**", excluding: [])],
+                dependencies: [
+                    deps,
+                    [
+                    ]
+                ].flatMap { $0 },
+                settings: nil
+            )
+            
+            projectTargets.append(target)
+        }
+        
+        // MARK: - UI Tests
+        
+        if targets.contains(.uiTest) {
+            let deps: [TargetDependency] = targets.contains(.demo)
+            ? [.target(name: name), .target(name: "\(name)Demo")] : [.target(name: name)]
+            
+            let target = Target(
+                name: "\(name)UITests",
+                platform: platform,
+                product: .uiTests,
+                bundleId: "\(Environment.bundlePrefix).\(name)UITests",
+                deploymentTarget: deploymentTarget,
+                infoPlist: .default,
+                sources: ["UITests/Sources/**/*.swift"],
+                dependencies: [
+                    deps,
+                    [
+                    ]
+                ].flatMap { $0 },
+                settings: nil
+            )
+            
+            projectTargets.append(target)
+        }
+        
+        
+        return Project(
             name: name,
-            destinations: destinations,
-            product: .app,
-            bundleId: "io.tuist.\(name)",
-            infoPlist: .extendingDefault(with: infoPlist),
-            sources: ["Targets/\(name)/Sources/**"],
-            resources: ["Targets/\(name)/Resources/**"],
-            dependencies: dependencies
+            organizationName: Environment.workspaceName,
+            packages: packages,
+            settings: nil,
+            targets: projectTargets,
+            schemes: []
         )
+    }
+}
 
-        let testTarget = Target(
-            name: "\(name)Tests",
-            destinations: destinations,
-            product: .unitTests,
-            bundleId: "io.tuist.\(name)Tests",
-            infoPlist: .default,
-            sources: ["Targets/\(name)/Tests/**"],
-            dependencies: [
-                .target(name: "\(name)")
-            ]
-        )
-        return [mainTarget, testTarget]
+private func createDirectoryAtCustomPath(folderName: String, directoryPath: String) {
+    guard directoryPath != "" else { return }
+
+    let directoryName = folderName // 폴더 이름 설정
+    let directoryURL = URL(fileURLWithPath: directoryPath).appendingPathComponent(directoryName) // 변경할 경로 지정
+
+    let fileManager = FileManager.default
+    do {
+        if fileManager.fileExists(atPath: directoryURL.path) {
+            print("\n----------------------------------------\n'\(directoryName)' already exists ☑️\n----------------------------------------")
+            return
+        }
+
+        // Create Demo directory
+        try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true, attributes: nil)
+        print("\n'\(directoryName)' Directory created ✅\n")
+        
+        // Create Sources directory inside Demo
+        let sourcesURL = directoryURL.appendingPathComponent("Sources")
+        try fileManager.createDirectory(at: sourcesURL, withIntermediateDirectories: true, attributes: nil)
+        print("\nSources directory created ✅\n")
+        
+        // Create Dummy.swift file Sources Directory
+        let fileURL = sourcesURL.appendingPathComponent("Demo.swift")
+        try "".write(to: fileURL, atomically: true, encoding: .utf8)
+        print("\n'Dummy.swift' File created ✅\n")
+        
+        // Create Resources directory
+        if folderName == "Demo" {
+            let reSourcesURL = directoryURL.appendingPathComponent("Resources")
+            try fileManager.createDirectory(at: reSourcesURL, withIntermediateDirectories: true, attributes: nil)
+            print("\nResources directory created ✅\n")
+            
+            let fileURL = reSourcesURL.appendingPathComponent("Demo.swift")
+            try "".write(to: fileURL, atomically: true, encoding: .utf8)
+            print("\n'Dummy.swift' File created ✅\n")
+        }
+        
+    } catch {
+        print("\nError creating directory ❌\n -> \(error.localizedDescription)\n")
+    }
+}
+
+private func createSourceDirectory(directoryPath: String) {
+    guard directoryPath != "" else { return }
+    
+    let fileManager = FileManager.default
+    let directoryURL = URL(fileURLWithPath: directoryPath)
+    let sourcesURL = directoryURL.appendingPathComponent("Sources")
+    do {
+        if fileManager.fileExists(atPath: sourcesURL.path) {
+            print("\n----------------------------------------\n Sources already exists ☑️\n----------------------------------------")
+            return
+        }
+        
+        try fileManager.createDirectory(at: sourcesURL, withIntermediateDirectories: true, attributes: nil)
+        print("\nSources directory created ✅\n")
+    } catch {
+        print("\nError creating directory ❌\n -> \(error.localizedDescription)\n")
     }
 }
