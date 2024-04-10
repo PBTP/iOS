@@ -14,7 +14,6 @@ public extension Project {
     ) -> Project {
         
         let deploymentTarget = Environment.deploymentTarget
-        let platform = Environment.platform
         var projectTargets: [Target] = []
         var schemes: [Scheme] = []
         
@@ -26,12 +25,12 @@ public extension Project {
             let bundleSuffix = "demo"
             let infoPlist = Project.demoInfoPlist
             
-            let target = Target(
+            let target = Target.target(
                 name: name,
-                platform: platform,
+                destinations: .iOS,
                 product: .app,
                 bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)",
-                deploymentTarget: deploymentTarget,
+                deploymentTargets: deploymentTarget,
                 infoPlist: .extendingDefault(with: infoPlist),
                 sources: ["Sources/**/*.swift"],
                 resources: [.glob(pattern: "Resources/**", excluding: [])],
@@ -51,12 +50,12 @@ public extension Project {
         
         if targets.contains(.frameWork) {
             
-            let target = Target(
+            let target = Target.target(
                 name: name,
-                platform: platform,
+                destinations: .iOS,
                 product: .framework,
                 bundleId: "\(Environment.bundlePrefix).\(name)",
-                deploymentTarget: deploymentTarget,
+                deploymentTargets: deploymentTarget,
                 infoPlist: .default,
                 sources: ["Sources/**/*.swift"],
                 resources: hasResources ? [.glob(pattern: "Resources/**", excluding: [])] : [],
@@ -74,12 +73,12 @@ public extension Project {
             
             let deps: [TargetDependency] = [.target(name: name)]
             
-            let target = Target(
+            let target = Target.target(
                 name: "\(name)Demo",
-                platform: platform,
+                destinations: .iOS,
                 product: .app,
                 bundleId: "\(Environment.bundlePrefix).\(name)Demo",
-                deploymentTarget: deploymentTarget,
+                deploymentTargets: deploymentTarget,
                 infoPlist: .extendingDefault(with: Project.demoInfoPlist),
                 sources: ["Demo/Sources/**/*.swift"],
                 resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
@@ -99,12 +98,12 @@ public extension Project {
         if targets.contains(.unitTest) {
             let deps: [TargetDependency] = [.target(name: name)]
             
-            let target = Target(
+            let target = Target.target(
                 name: "\(name)Tests",
-                platform: platform,
+                destinations: .iOS,
                 product: .unitTests,
                 bundleId: "\(Environment.bundlePrefix).\(name)Tests",
-                deploymentTarget: deploymentTarget,
+                deploymentTargets: deploymentTarget,
                 infoPlist: .default,
                 sources: ["Tests/Sources/**/*.swift"],
                 resources: [.glob(pattern: "Tests/Resources/**", excluding: [])],
@@ -125,12 +124,12 @@ public extension Project {
             let deps: [TargetDependency] = targets.contains(.demo)
             ? [.target(name: name), .target(name: "\(name)Demo")] : [.target(name: name)]
             
-            let target = Target(
+            let target = Target.target(
                 name: "\(name)UITests",
-                platform: platform,
+                destinations: .iOS,
                 product: .uiTests,
                 bundleId: "\(Environment.bundlePrefix).\(name)UITests",
-                deploymentTarget: deploymentTarget,
+                deploymentTargets: deploymentTarget,
                 infoPlist: .default,
                 sources: ["UITests/Sources/**/*.swift"],
                 dependencies: [
