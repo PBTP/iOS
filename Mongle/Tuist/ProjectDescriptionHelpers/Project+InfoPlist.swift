@@ -15,6 +15,7 @@ public extension Project {
         "CFBundleDevelopmentRegion": "ko",
         "CFBundleIdentifier": "\(Environment.bundlePrefix).release",
         "DEFINES_MODULE": "NO",
+        "UILaunchStoryboardName": "LaunchScreen",
         "UISupportedInterfaceOrientations":
             [
                 "UlInterfaceOrientationPortrait"
@@ -28,6 +29,7 @@ public extension Project {
         "CFBundleDevelopmentRegion": "ko",
         "CFBundleIdentifier": "\(Environment.bundlePrefix).demo",
         "DEFINES_MODULE": "NO",
+        "UILaunchStoryboardName": "LaunchScreen",
         "UISupportedInterfaceOrientations":
             [
                 "UlInterfaceOrientationPortrait"
