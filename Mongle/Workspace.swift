@@ -26,6 +26,9 @@ let workspace = Workspace(
         Features.profileFeature.path,
         Features.baseFeature.path,
         
+        //Ui
+        Ui.designSystem.path,
+        
         // Library
         Module.thirdPartyLibraryLib.path,
     ]
