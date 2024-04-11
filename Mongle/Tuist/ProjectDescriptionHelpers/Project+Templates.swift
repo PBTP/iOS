@@ -17,7 +17,8 @@ public extension Project {
         var projectTargets: [Target] = []
         var schemes: [Scheme] = []
         
-        createSourceDirectory(directoryPath: directoryPath)
+        createDirectory(directoryname: "Sources", directoryPath: directoryPath)
+        hasResources ? createDirectory(directoryname: "Resources", directoryPath: directoryPath) : ()
         
         // MARK: - App
         
@@ -178,19 +179,11 @@ private func createDirectoryAtCustomPath(folderName: String, directoryPath: Stri
         print("\nSources directory created ✅\n")
         
         // Create Dummy.swift file Sources Directory
-        let fileURL = sourcesURL.appendingPathComponent("Demo.swift")
-        try "".write(to: fileURL, atomically: true, encoding: .utf8)
-        print("\n'Dummy.swift' File created ✅\n")
+        createDirectory(directoryname: "Sources", directoryPath: directoryURL.absoluteString)
         
         // Create Resources directory
         if folderName == "Demo" {
-            let reSourcesURL = directoryURL.appendingPathComponent("Resources")
-            try fileManager.createDirectory(at: reSourcesURL, withIntermediateDirectories: true, attributes: nil)
-            print("\nResources directory created ✅\n")
-            
-            let fileURL = reSourcesURL.appendingPathComponent("Demo.swift")
-            try "".write(to: fileURL, atomically: true, encoding: .utf8)
-            print("\n'Dummy.swift' File created ✅\n")
+            createDirectory(directoryname: "Resources", directoryPath: directoryURL.absoluteString)
         }
         
     } catch {
@@ -198,21 +191,34 @@ private func createDirectoryAtCustomPath(folderName: String, directoryPath: Stri
     }
 }
 
-private func createSourceDirectory(directoryPath: String) {
+private func createDirectory(directoryname: String, directoryPath: String) {
     guard directoryPath != "" else { return }
     
     let fileManager = FileManager.default
     let directoryURL = URL(fileURLWithPath: directoryPath)
-    let sourcesURL = directoryURL.appendingPathComponent("Sources")
+    let directoryNameURL = directoryURL.appendingPathComponent(directoryname)
     do {
-        if fileManager.fileExists(atPath: sourcesURL.path) {
-            print("\n----------------------------------------\n Sources already exists ☑️\n----------------------------------------")
+        if fileManager.fileExists(atPath: directoryNameURL.path) {
+            print("\n----------------------------------------\n \(directoryname) already exists ☑️\n----------------------------------------")
             return
         }
         
-        try fileManager.createDirectory(at: sourcesURL, withIntermediateDirectories: true, attributes: nil)
-        print("\nSources directory created ✅\n")
+        try fileManager.createDirectory(at: directoryNameURL, withIntermediateDirectories: true, attributes: nil)
+        print("\n\(directoryname) directory created ✅\n")
     } catch {
         print("\nError creating directory ❌\n -> \(error.localizedDescription)\n")
+    }
+    
+    createDummyFile(directoryURL: directoryNameURL)
+}
+
+// Create Dummy.swift file
+private func createDummyFile(directoryURL: URL) {
+    let fileURL = (directoryURL).appendingPathComponent("Dummy.swift")
+    do {
+        try "".write(to: fileURL, atomically: true, encoding: .utf8)
+        print("\n'Dummy.swift' File created ✅\n")
+    } catch {
+        print("\nError creating Dummy.swift file ❌\n -> \(error.localizedDescription)\n")
     }
 }
