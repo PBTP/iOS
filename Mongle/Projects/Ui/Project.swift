@@ -12,6 +12,9 @@ let project = Project.makeModule(
     name: Module.ui.name,
     targets: [.frameWork],
     directoryPath: Module.ui.path.pathString,
-    internalDependencies: [Module.thirdPartyLibraryLib.project],
+    internalDependencies: [
+        Ui.designSystem.project,
+        Module.thirdPartyLibraryLib.project
+    ],
     hasResources: true
 )
