@@ -20,6 +20,7 @@ let workspace = Workspace(
         Features.rootFeature.path,
         
         //Features
+        Features.onBoardingFeature.path,
         Features.homeFeature.path,
         Features.calendarFeature.path,
         Features.chatFeature.path,

@@ -45,6 +45,8 @@ extension Module: CaseIterable { }
 public enum Features {
     case rootFeature
     
+    case onBoardingFeature
+    
     case homeFeature
     
     case calendarFeature
@@ -62,6 +64,8 @@ extension Features {
         switch self {
         case .rootFeature:
             return "RootFeature"
+        case .onBoardingFeature:
+            return "OnBoardingFeature"
         case .homeFeature:
             return "HomeFeature"
         case .calendarFeature:
