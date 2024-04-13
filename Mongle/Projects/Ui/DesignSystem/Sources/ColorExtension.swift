@@ -25,16 +25,16 @@ public extension Color {
     static let mongleColorPrimary900 = Color(asset:DesignSystemAsset.Colors.mongleColorPrimary900)
     
     // GrayScale
-    static let mognleGrayScale0 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale0)
-    static let mognleGrayScale100 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale100)
-    static let mognleGrayScale200 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale200)
-    static let mognleGrayScale300 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale300)
-    static let mognleGrayScale400 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale400)
-    static let mognleGrayScale500 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale500)
-    static let mognleGrayScale600 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale600)
-    static let mognleGrayScale700 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale700)
-    static let mognleGrayScale800 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale800)
-    static let mognleGrayScale900 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale900)
-    static let mognleGrayScale1000 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale1000)
+    static let mongleGrayScale0 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale0)
+    static let mongleGrayScale100 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale100)
+    static let mongleGrayScale200 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale200)
+    static let mongleGrayScale300 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale300)
+    static let mongleGrayScale400 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale400)
+    static let mongleGrayScale500 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale500)
+    static let mongleGrayScale600 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale600)
+    static let mongleGrayScale700 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale700)
+    static let mongleGrayScale800 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale800)
+    static let mongleGrayScale900 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale900)
+    static let mongleGrayScale1000 = Color(asset:DesignSystemAsset.Colors.mongleGrayScale1000)
 }
 
