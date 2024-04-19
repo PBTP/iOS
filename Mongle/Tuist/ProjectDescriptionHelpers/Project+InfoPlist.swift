@@ -16,6 +16,10 @@ public extension Project {
         "CFBundleIdentifier": "\(Environment.bundlePrefix).release",
         "DEFINES_MODULE": "NO",
         "UILaunchStoryboardName": "LaunchScreen",
+        "Launch Screen" : [
+            "Image Name" : "logo",
+            "Background color" : "splash_color"
+        ],
         "UISupportedInterfaceOrientations":
             [
                 "UlInterfaceOrientationPortrait"
@@ -30,6 +34,10 @@ public extension Project {
         "CFBundleIdentifier": "\(Environment.bundlePrefix).demo",
         "DEFINES_MODULE": "NO",
         "UILaunchStoryboardName": "LaunchScreen",
+        "UILaunchScreen" : [
+            "UIImageName" : "logo",
+            "UIColorName" : "splash_color"
+        ],
         "UISupportedInterfaceOrientations":
             [
                 "UlInterfaceOrientationPortrait"

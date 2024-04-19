@@ -20,14 +20,12 @@ let workspace = Workspace(
         Features.rootFeature.path,
         
         //Features
+        Features.onBoardingFeature.path,
         Features.homeFeature.path,
         Features.calendarFeature.path,
         Features.chatFeature.path,
         Features.profileFeature.path,
         Features.baseFeature.path,
-        
-        //Ui
-        Ui.designSystem.path,
         
         // Library
         Module.thirdPartyLibraryLib.path,

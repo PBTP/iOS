@@ -45,6 +45,8 @@ extension Module: CaseIterable { }
 public enum Features {
     case rootFeature
     
+    case onBoardingFeature
+    
     case homeFeature
     
     case calendarFeature
@@ -62,6 +64,8 @@ extension Features {
         switch self {
         case .rootFeature:
             return "RootFeature"
+        case .onBoardingFeature:
+            return "OnBoardingFeature"
         case .homeFeature:
             return "HomeFeature"
         case .calendarFeature:
@@ -84,26 +88,3 @@ extension Features {
 }
 
 extension Features: CaseIterable { }
-
-public enum Ui {
-    case designSystem
-}
-
-extension Ui {
-    public var name: String {
-        switch self {
-        case .designSystem:
-            return "DesignSystem"
-        }
-    }
-    
-    public var path: ProjectDescription.Path {
-        return .relativeToRoot("Projects/Ui/" + self.name)
-    }
-    
-    public var project: TargetDependency {
-        return .project(target: self.name, path: self.path)
-    }
-}
-
-extension Ui: CaseIterable { }
