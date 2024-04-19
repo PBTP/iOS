@@ -13,6 +13,7 @@ let project = Project.makeModule(
     targets: [.frameWork],
     directoryPath: Features.rootFeature.path.pathString,
     internalDependencies: [
+        Features.onBoardingFeature.project,
         Features.homeFeature.project,
         Features.calendarFeature.project,
         Features.chatFeature.project,
