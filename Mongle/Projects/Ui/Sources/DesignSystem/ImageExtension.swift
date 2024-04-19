@@ -13,4 +13,7 @@ public extension Image {
     static let kakakaoLogin = UiAsset.Images.kakaoLogin.swiftUIImage
     static let xCloseIcon = UiAsset.Images.xCloseIcon.swiftUIImage
     static let arrowLeftIcon = UiAsset.Images.arrowLeftIcon.swiftUIImage
+    static let checkBoxEmptyIcon = UiAsset.Images.checkboxEmptyIcon.swiftUIImage
+    static let checkBoxFillIcon = UiAsset.Images.checkboxFillIcon.swiftUIImage
+    static let chevronDownIcon = UiAsset.Images.chevronDownIcon.swiftUIImage
 }
