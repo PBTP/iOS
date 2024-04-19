@@ -9,20 +9,33 @@
 import SwiftUI
 
 public struct HeaderComponent: View {
-    public init() {}
+    let headerText: String
+    let iconImageName: Image
+    let action: () -> Void
+    
+    public init(headerText: String, iconImageName: Image, action: @escaping() -> Void)  {
+        self.headerText = headerText
+        self.iconImageName = iconImageName
+        self.action = action
+    }
     
     public var body: some View {
-        Text("로그인")
+        Text(headerText)
             .font(.mgTitle2)
             .foregroundStyle(Color.mongleGrayScale1000)
             .frame(maxWidth: .infinity)
             .overlay(alignment: .leading) {
-                Image.xCloseIcon.swiftUIImage
+                Button {
+                    action()
+                } label: {
+                    iconImageName
+                }
+                .padding(.leading, 2)
             }
-            .padding(.vertical, 19)
+            .padding(.vertical, 20)
     }
 }
 
 #Preview {
-    HeaderComponent()
+    HeaderComponent(headerText: "로그인", iconImageName: Image.xCloseIcon) { }
 }
