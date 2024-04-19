@@ -13,7 +13,7 @@ import OnBoardingFeature
 struct OnBoardingApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            Text("OnBoardingDemo")
         }
     }
 }
