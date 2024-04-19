@@ -13,27 +13,20 @@ public struct LoginView: View {
     public init() {}
     
     public var body: some View {
-        VStack(spacing: 12) {
-            
-            HeaderComponent()
-            
-            Text("illust")
-                .padding(.vertical, 250)
-            
-            KaKaoLoginButton {
+            VStack(spacing: 12) {
+                HeaderComponent(headerText: "로그인", iconImageName: Image.xCloseIcon) {}
                 
-            }
-            
-            AppleLoginButton {
+                Spacer()
                 
-            }
-            
-            SkipLoginButton {
+                KaKaoLoginButton {}
                 
+                AppleLoginButton {}
+                
+                SkipLoginButton {}
+                .padding(.top, 24)
+                .padding(.bottom, 50)
             }
-            .padding(.top, 24)
-        }
-        .padding(.horizontal, 20)
+            .padding(.horizontal, 20)
     }
 }
 
