@@ -9,7 +9,8 @@
 import SwiftUI
 
 public extension Image {
-    static let appleLogin = UiAsset.Images.appleLogin
-    static let kakakaoLogin = UiAsset.Images.kakaoLogin
-    static let xCloseIcon = UiAsset.Images.xCloseIcon
+    static let appleLogin = UiAsset.Images.appleLogin.swiftUIImage
+    static let kakakaoLogin = UiAsset.Images.kakaoLogin.swiftUIImage
+    static let xCloseIcon = UiAsset.Images.xCloseIcon.swiftUIImage
+    static let arrowLeftIcon = UiAsset.Images.arrowLeftIcon.swiftUIImage
 }

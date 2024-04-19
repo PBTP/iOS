@@ -13,7 +13,7 @@ public func KaKaoLoginButton(action: @escaping () -> Void) -> some View {
         print("카카오 로그인 버튼 클릭")
         action()
     } label: {
-        Image.kakakaoLogin.swiftUIImage
+        Image.kakakaoLogin
             .resizable()
             .scaledToFit()
             .frame(maxWidth: .infinity)
@@ -25,7 +25,7 @@ public func AppleLoginButton(action: @escaping () -> Void) -> some View {
         print("애플 로그인 버튼 클릭")
         action()
     } label: {
-        Image.appleLogin.swiftUIImage
+        Image.appleLogin
             .resizable()
             .scaledToFit()
             .frame(maxWidth: .infinity)
