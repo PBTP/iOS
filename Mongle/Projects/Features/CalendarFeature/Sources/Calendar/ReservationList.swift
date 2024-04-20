@@ -15,7 +15,7 @@ enum ViewState {
     case cancel
 }
 
-struct ReservationListArea: View {
+struct ReservationList: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(alignment: .top, spacing: 15) {
@@ -64,5 +64,5 @@ struct ReservationListArea: View {
 }
 
 #Preview {
-    ReservationListArea()
+    ReservationList()
 }

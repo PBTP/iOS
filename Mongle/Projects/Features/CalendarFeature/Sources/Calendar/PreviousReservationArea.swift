@@ -38,7 +38,7 @@ struct PreviousReservationArea: View {
             }
             
             ScrollView {
-                ReservationListArea()
+                ReservationList()
             }
         }
         .padding(.vertical, 16)
