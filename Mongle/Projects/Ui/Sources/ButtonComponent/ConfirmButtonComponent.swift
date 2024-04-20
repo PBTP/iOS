@@ -54,17 +54,24 @@ public func mongleButton(_ buttonText: String, buttonColor: Color, textColor: Co
     }
 }
 
-public func iconHorizontalButton(_ buttonText: String, buttonColor: Color, textColor: Color, textFont: Font, verticalPadding: Double, horizontalPadding: Double, radius: Double, iconImage: Image, spacing: Double, action: @escaping () -> Void) -> some View {
+public func iconHorizontalButton(_ buttonText: String, buttonColor: Color, textColor: Color, textFont: Font, verticalPadding: Double, horizontalPadding: Double, radius: Double, iconImage: Image, spacing: Double, iconLeft: Bool, action: @escaping () -> Void) -> some View {
     Button {
         print("\(buttonText) 버튼 클릭")
         action()
     } label: {
             HStack(spacing: spacing) {
-                iconImage
+                
+                if iconLeft {
+                    iconImage
+                }
                 
                 Text(buttonText)
                     .font(textFont)
                     .foregroundColor(textColor)
+                
+                if !iconLeft {
+                    iconImage
+                }
             }
             .padding(.vertical, verticalPadding)
             .padding(.horizontal, horizontalPadding)
@@ -83,7 +90,7 @@ public func iconHorizontalButton(_ buttonText: String, buttonColor: Color, textC
             
             RequestButton("재요청") {}
             
-            iconHorizontalButton("목욕 업체 둘러보기", buttonColor: Color.mongleGrayScale500, textColor: Color.mongleGrayScale0, textFont: .mgBody4, verticalPadding: 11, horizontalPadding: 12, radius: 8, iconImage: Image.searchIcon, spacing: 8) {
+            iconHorizontalButton("목욕 업체 둘러보기", buttonColor: Color.mongleGrayScale500, textColor: Color.mongleGrayScale0, textFont: .mgBody4, verticalPadding: 11, horizontalPadding: 12, radius: 8, iconImage: Image.searchIcon, spacing: 8, iconLeft: true) {
             }
         }
     }

@@ -22,7 +22,7 @@ struct OnComingReservationArea: View {
                     .foregroundStyle(Color.mongleGrayScale400)
                     .multilineTextAlignment(.center)
                 
-                iconHorizontalButton("목욕 업체 둘러보기", buttonColor: Color.mongleGrayScale500, textColor: Color.mongleGrayScale0, textFont: .mgBody4, verticalPadding: 11, horizontalPadding: 12, radius: 8, iconImage: Image.searchIcon, spacing: 8) {
+                iconHorizontalButton("목욕 업체 둘러보기", buttonColor: Color.mongleGrayScale500, textColor: Color.mongleGrayScale0, textFont: .mgBody4, verticalPadding: 11, horizontalPadding: 12, radius: 8, iconImage: Image.searchIcon, spacing: 8, iconLeft: true) {
                 }
             }
             .frame(maxWidth: .infinity)
