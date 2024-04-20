@@ -19,4 +19,7 @@ public extension Image {
     static let searchIcon = UiAsset.Images.searchIcon.swiftUIImage
     static let chevronRightIcon = UiAsset.Images.chevronRightIcon.swiftUIImage
     static let markerPinIcon = UiAsset.Images.markerPinIcon.swiftUIImage
+    static let gearIcon = UiAsset.Images.gearIcon.swiftUIImage
+    static let plucIcon = UiAsset.Images.plucIcon.swiftUIImage
+    static let pencilIcon = UiAsset.Images.pencilIcon.swiftUIImage
 }
