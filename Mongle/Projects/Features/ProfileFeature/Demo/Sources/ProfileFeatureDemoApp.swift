@@ -7,12 +7,13 @@
 //
 
 import SwiftUI
+import ProfileFeature
 
 @main
 struct ProfileFeatureDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            Text("ProfileFeatureDemoApp")
+            ProfileView()
         }
     }
 }

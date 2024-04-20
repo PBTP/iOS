@@ -9,8 +9,10 @@
 import SwiftUI
 import Ui
 
-struct ProfileView: View {
-    var body: some View {
+public struct ProfileView: View {
+    public init() {}
+    
+    public var body: some View {
         VStack(spacing: 0) {
             TabHeaderComponent(headerText: "마이", iconImageName: Image.gearIcon) { }
             
