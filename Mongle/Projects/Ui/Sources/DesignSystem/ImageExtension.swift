@@ -16,4 +16,7 @@ public extension Image {
     static let checkBoxEmptyIcon = UiAsset.Images.checkboxEmptyIcon.swiftUIImage
     static let checkBoxFillIcon = UiAsset.Images.checkboxFillIcon.swiftUIImage
     static let chevronDownIcon = UiAsset.Images.chevronDownIcon.swiftUIImage
+    static let searchIcon = UiAsset.Images.searchIcon.swiftUIImage
+    static let chevronRightIcon = UiAsset.Images.chevronRightIcon.swiftUIImage
+    static let markerPinIcon = UiAsset.Images.markerPinIcon.swiftUIImage
 }
