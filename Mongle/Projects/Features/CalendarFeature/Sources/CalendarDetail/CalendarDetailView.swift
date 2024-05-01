@@ -27,10 +27,10 @@ public struct CalendarDetailView: View {
                 CustomerRequestArea()
                 
                 HStack(spacing: 8) {
-                    mongleStrokeButton("취소", buttonColor: Color.clear, textColor: Color.mongleGrayScale800, strokeColor: Color.mongleGrayScale300, textFont: .mgTitle2, verticalPadding: 17, radius: 8, lineWidth: 1) {
+                    infinityStrokeButton("취소", buttonColor: Color.clear, textColor: Color.mongleGrayScale800, strokeColor: Color.mongleGrayScale300, textFont: .mgTitle2, verticalPadding: 17, radius: 8, lineWidth: 1) {
                     }
                     
-                    mongleStrokeButton("확인", buttonColor: Color.clear, textColor: Color.mongleGrayScale800, strokeColor: Color.mongleGrayScale300, textFont: .mgTitle2, verticalPadding: 17, radius: 8, lineWidth: 1) {
+                    infinityStrokeButton("확인", buttonColor: Color.clear, textColor: Color.mongleGrayScale800, strokeColor: Color.mongleGrayScale300, textFont: .mgTitle2, verticalPadding: 17, radius: 8, lineWidth: 1) {
                     }
                 }
             }

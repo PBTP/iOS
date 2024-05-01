@@ -80,7 +80,7 @@ public func iconHorizontalButton(_ buttonText: String, buttonColor: Color, textC
     }
 }
 
-public func mongleStrokeButton(_ buttonText: String, buttonColor: Color, textColor: Color, strokeColor: Color,textFont: Font, verticalPadding: Double, radius: Double, lineWidth: Double, action: @escaping () -> Void) -> some View {
+public func infinityStrokeButton(_ buttonText: String, buttonColor: Color, textColor: Color, strokeColor: Color,textFont: Font, verticalPadding: Double, radius: Double, lineWidth: Double, action: @escaping () -> Void) -> some View {
     Button {
         print("\(buttonText) 버튼 클릭")
         action()
@@ -90,6 +90,24 @@ public func mongleStrokeButton(_ buttonText: String, buttonColor: Color, textCol
                 .foregroundColor(textColor)
                 .padding(.vertical, verticalPadding)
                 .frame(maxWidth: .infinity)
+                .background(buttonColor)
+                .overlay(
+                    RoundedRectangle(cornerRadius: radius)
+                        .stroke(strokeColor, lineWidth: lineWidth)
+                )
+    }
+}
+
+public func strokeButton(_ buttonText: String, buttonColor: Color, textColor: Color, strokeColor: Color,textFont: Font, verticalPadding: Double, horizontalPadding: Double, radius: Double, lineWidth: Double, action: @escaping () -> Void) -> some View {
+    Button {
+        print("\(buttonText) 버튼 클릭")
+        action()
+    } label: {
+            Text(buttonText)
+                .font(textFont)
+                .foregroundColor(textColor)
+                .padding(.vertical, verticalPadding)
+                .padding(.horizontal, horizontalPadding)
                 .background(buttonColor)
                 .overlay(
                     RoundedRectangle(cornerRadius: radius)
@@ -110,7 +128,7 @@ public func mongleStrokeButton(_ buttonText: String, buttonColor: Color, textCol
             iconHorizontalButton("목욕 업체 둘러보기", buttonColor: Color.mongleGrayScale500, textColor: Color.mongleGrayScale0, textFont: .mgBody4, verticalPadding: 11, horizontalPadding: 12, radius: 8, iconImage: Image.searchIcon, spacing: 8, iconLeft: true) {
             }
             
-            mongleStrokeButton("취소", buttonColor: Color.clear, textColor: Color.mongleGrayScale800, strokeColor: Color.mongleGrayScale300, textFont: .mgTitle2, verticalPadding: 17, radius: 8, lineWidth: 1) {
+            infinityStrokeButton("취소", buttonColor: Color.clear, textColor: Color.mongleGrayScale800, strokeColor: Color.mongleGrayScale300, textFont: .mgTitle2, verticalPadding: 17, radius: 8, lineWidth: 1) {
             }
         }
     }
