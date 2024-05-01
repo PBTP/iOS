@@ -25,6 +25,7 @@ public extension Image {
     static let plucIcon = UiAsset.Images.plucIcon.swiftUIImage
     static let searchGrayIcon = UiAsset.Images.searchGrayIcon.swiftUIImage
     static let searchIcon = UiAsset.Images.searchIcon.swiftUIImage
+    static let xCircleIcon = UiAsset.Images.xCircleIcon.swiftUIImage
     static let xCloseIcon = UiAsset.Images.xCloseIcon.swiftUIImage
 }
 
