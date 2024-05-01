@@ -16,7 +16,7 @@ public struct SearchView: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            SearchHeaderComponent()
+            SearchHeaderArea()
             
             RecentSearchCompanyList()
             

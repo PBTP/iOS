@@ -9,7 +9,7 @@
 import SwiftUI
 import Ui
 
-struct SearchHeaderComponent: View {
+struct SearchHeaderArea: View {
     var body: some View {
         HStack(spacing: 16) {
             Button {
@@ -25,5 +25,5 @@ struct SearchHeaderComponent: View {
 }
 
 #Preview {
-    SearchHeaderComponent()
+    SearchHeaderArea()
 }
