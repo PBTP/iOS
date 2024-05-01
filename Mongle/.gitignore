@@ -1,3 +1,5 @@
+@ -1,2 +1,76 @@
+
 ### macOS ###
 # General
 .DS_Store
@@ -72,3 +74,5 @@ Tuist/Dependencies
 
 ### Files ###
 Configs/
+Mongle/Tuist/master.key
+/Mongle/Tuist/Signing
