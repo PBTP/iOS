@@ -1,6 +1,15 @@
 {
-  "originHash" : "6a0e962ce92358df4931dba50bee88ba3ca18adb7b1fc415a4b78ebd15e01545",
+  "originHash" : "65ceeb42f5317e224386286b0cacd2965bcfbfc3c39c85543fc5e07acb44e52e",
   "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
+        "version" : "5.9.1"
+      }
+    },
     {
       "identity" : "combine-schedulers",
       "kind" : "remoteSourceControl",
@@ -8,6 +17,15 @@
       "state" : {
         "revision" : "9dc9cbe4bc45c65164fa653a563d8d8db61b09bb",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "kakao-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk",
+      "state" : {
+        "revision" : "ab226a7a3625d64e73a52aa3800595dab810156b",
+        "version" : "2.22.1"
       }
     },
     {

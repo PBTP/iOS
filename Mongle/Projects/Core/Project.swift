@@ -12,5 +12,6 @@ let project = Project.makeModule(
     name: Module.core.name,
     targets: [.frameWork],
     directoryPath: Module.core.path.pathString,
-    internalDependencies: [Module.thirdPartyLibraryLib.project]
+    internalDependencies: [Module.thirdPartyLibraryLib.project],
+    externalDependencies: [.SPM.KakaoSDK]
 )
