@@ -10,12 +10,33 @@ public extension Project {
         internalDependencies: [TargetDependency] = [],  // 모듈간 의존성
         externalDependencies: [TargetDependency] = [],  // 외부 라이브러리 의존성
         dependencies: [TargetDependency] = [],
-        hasResources: Bool = false
+        hasResources: Bool = false,
+        schemes: [Scheme] = []
     ) -> Project {
         
         let deploymentTarget = Environment.deploymentTarget
         var projectTargets: [Target] = []
-        var schemes: [Scheme] = []
+        let schemes: [Scheme] = [
+            Scheme.scheme(
+                name: "App",
+                shared: true,
+                buildAction: BuildAction.buildAction(targets: ["App"]),
+                runAction: .runAction(
+                    configuration: .debug,
+                    preActions: [],
+                    postActions: [],
+                    arguments: Arguments.arguments(
+                        environmentVariables: [
+                            "KAKAO_APP_KEY": EnvironmentVariable(stringLiteral: APIKey.kakaoAppKey)
+                        ],
+                        launchArguments: []
+                    ),
+                    options: .options(),
+                    diagnosticsOptions: .options(),
+                    expandVariableFromTarget: nil
+                )
+            )
+        ]
         
         createDirectory(directoryname: "Sources", directoryPath: directoryPath)
         hasResources ? createDirectory(directoryname: "Resources", directoryPath: directoryPath) : ()
@@ -78,7 +99,7 @@ public extension Project {
                 name: "\(name)Demo",
                 destinations: .iOS,
                 product: .app,
-                bundleId: "\(Environment.bundlePrefix).\(name)Demo",
+                bundleId: "\(Environment.bundlePrefix).demo",
                 deploymentTargets: deploymentTarget,
                 infoPlist: .extendingDefault(with: Project.demoInfoPlist),
                 sources: ["Demo/Sources/**/*.swift"],
@@ -151,24 +172,21 @@ public extension Project {
             packages: packages,
             settings: nil,
             targets: projectTargets,
-            schemes: []
+            schemes: schemes
         )
     }
 }
 
 private func createDirectoryAtCustomPath(folderName: String, directoryPath: String) {
     guard directoryPath != "" else { return }
-
     let directoryName = folderName // 폴더 이름 설정
     let directoryURL = URL(fileURLWithPath: directoryPath).appendingPathComponent(directoryName) // 변경할 경로 지정
-
     let fileManager = FileManager.default
     do {
         if fileManager.fileExists(atPath: directoryURL.path) {
             print("\n----------------------------------------\n'\(directoryName)' already exists ☑️\n----------------------------------------")
             return
         }
-
         // Create Demo directory
         try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true, attributes: nil)
         print("\n'\(directoryName)' Directory created ✅\n")

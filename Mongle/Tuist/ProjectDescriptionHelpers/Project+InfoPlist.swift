@@ -15,6 +15,16 @@ public extension Project {
         "CFBundleDevelopmentRegion": "ko",
         "CFBundleIdentifier": "\(Environment.bundlePrefix).release",
         "DEFINES_MODULE": "NO",
+        "LSApplicationQueriesSchemes" : [
+            "kakaokompassauth",
+            "kakaolink"
+        ],
+        "CFBundleURLTypes": [
+            [
+                "CFBundleTypeRole": "Editor",
+                "CFBundleURLSchemes": ["kakao\(APIKey.kakaoAppKey)"]
+            ]
+        ],
         "UILaunchStoryboardName": "LaunchScreen",
         "Launch Screen" : [
             "Image Name" : "logo",
@@ -33,6 +43,16 @@ public extension Project {
         "CFBundleDevelopmentRegion": "ko",
         "CFBundleIdentifier": "\(Environment.bundlePrefix).demo",
         "DEFINES_MODULE": "NO",
+        "LSApplicationQueriesSchemes" : [
+            "kakaokompassauth",
+            "kakaolink"
+        ],
+        "CFBundleURLTypes": [
+            [
+                "CFBundleTypeRole": "Editor",
+                "CFBundleURLSchemes": ["kakao\(APIKey.kakaoAppKey)"]
+            ]
+        ],
         "UILaunchStoryboardName": "LaunchScreen",
         "UILaunchScreen" : [
             "UIImageName" : "logo",

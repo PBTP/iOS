@@ -7,12 +7,21 @@
 //
 
 import SwiftUI
+import KakaoSDKCommon
+import KakaoSDKAuth
+import OnBoardingFeature
 
 @main
-struct MainApp: App {
+struct Mongle: App {
+    init() {
+        if let appKey = ProcessInfo.processInfo.environment["KAKAO_APP_KEY"] {
+            KakaoSDK.initSDK(appKey: appKey)
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
+            LoginView()
         }
     }
 }

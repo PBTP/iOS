@@ -6,14 +6,15 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
-import SwiftUI
+import ComposableArchitecture
 import OnBoardingFeature
+import SwiftUI
 
 @main
 struct OnBoardingApp: App {
     var body: some Scene {
         WindowGroup {
-            Text("OnBoardingDemo")
+            LoginView()
         }
     }
 }
