@@ -15,12 +15,12 @@ public struct AppleAuthCore {
     
     @ObservableState
     public struct State: Equatable {
-        public var userIdentifier: String = ""
-        public var fullName: String = ""
-        public var name: String = ""
-        public var email: String = ""
-        public var identityToken: String = ""
-        public var authorizationCode: String = ""
+        public var userIdentifier: String?
+        public var fullName: String?
+        public var name: String?
+        public var email: String?
+        public var identityToken: String?
+        public var authorizationCode: String?
 
         public init() {}
     }
@@ -44,11 +44,11 @@ public struct AppleAuthCore {
                 return .none
                 
             case .loginInfoPrint:
-                print("user identifier: \(state.userIdentifier)")
-                print("user identityToken: \(state.identityToken)")
-                print("user fullName: \(state.fullName)")
-                print("email: \(state.email)")
-                print("authorizationCode: \(state.authorizationCode)")
+                print("user identifier: \(String(describing: state.userIdentifier ?? nil))")
+                print("user identityToken: \(String(describing: state.identityToken ?? nil))")
+                print("user fullName: \(String(describing: state.fullName ?? nil))")
+                print("email: \(String(describing: state.email ?? nil))")
+                print("authorizationCode: \(String(describing: state.authorizationCode ?? nil))")
                 return .none
             }
         }
