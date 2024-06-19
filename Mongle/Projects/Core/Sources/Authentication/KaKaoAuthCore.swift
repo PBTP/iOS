@@ -58,10 +58,6 @@ public class KaKaoAuthCore: ObservableObject {
                     self.customer.customerName = customerName
                 }
                 
-                if let customerPhoneNumber = user?.kakaoAccount?.phoneNumber {
-                    self.customer.customerPhoneNumber = customerPhoneNumber
-                }
-                
                 self.customer.authProvider = "KAKAO"
                 
                 print(self.customer)
