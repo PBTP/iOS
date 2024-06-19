@@ -16,13 +16,11 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 public struct LoginView: View {
+    @EnvironmentObject var kakaoAuth: KaKaoAuthCore
+    
     public init() {
         if let appKey = ProcessInfo.processInfo.environment["KAKAO_APP_KEY"] {
         }
-    }
-    
-    let store = Store(initialState: OnBoardingReducer.State.kakaoAuthentication(.init())) {
-        OnBoardingReducer.body._printChanges()
     }
     
     public var body: some View {
@@ -33,7 +31,7 @@ public struct LoginView: View {
             Spacer()
             
             KaKaoLoginButton {
-                store.send(.kakaoAuthentication(.loginKakaoAccount))
+                kakaoAuth.loginKakaoAccount()
             }
             
             AppleSigninButton()
@@ -69,7 +67,7 @@ struct AppleSigninButton : View {
                         print("Apple Login Successful")
                         switch authResults.credential{
                         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                            store.send(.login(appleIDCredential))
+                            store.send(.appleButtonTapped(appleIDCredential))
                             
                         default:
                             break
