@@ -6,6 +6,7 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
+import Core
 import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
@@ -13,6 +14,8 @@ import OnBoardingFeature
 
 @main
 struct Mongle: App {
+    @StateObject var kakaoAuth = KaKaoAuthCore()
+    
     init() {
         if let appKey = ProcessInfo.processInfo.environment["KAKAO_APP_KEY"] {
             KakaoSDK.initSDK(appKey: appKey)
@@ -22,6 +25,7 @@ struct Mongle: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
+                .environmentObject(kakaoAuth)
         }
     }
 }
