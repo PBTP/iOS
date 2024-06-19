@@ -44,6 +44,16 @@ class NetworkManager {
                     
                     if let data = data, let responseString = String(data: data, encoding: .utf8) {
                         print("Response Data: \(responseString)")
+                        
+                        if let customer = JsonDecoder.shared.decodeCustomer(from: responseString) {
+                            print("Customer UUID: \(customer.uuid ?? "nil")")
+                            print("Customer Name: \(customer.customerName ?? "nil")")
+                            print("Auth Provider: \(customer.authProvider ?? "nil")")
+                            print("Access Token: \(customer.accessToken ?? "nil")")
+                            print("Refresh Token: \(customer.refreshToken ?? "nil")")
+                        } else {
+                            print("Failed to decode customer")
+                        }
                     }
                     
                     if (200...299).contains(httpResponse.statusCode) {
