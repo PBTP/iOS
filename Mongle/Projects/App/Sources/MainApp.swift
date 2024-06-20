@@ -9,7 +9,6 @@
 import Core
 import SwiftUI
 import KakaoSDKCommon
-import KakaoSDKAuth
 import OnBoardingFeature
 
 @main
