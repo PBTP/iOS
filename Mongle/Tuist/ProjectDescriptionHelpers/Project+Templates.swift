@@ -46,6 +46,7 @@ public extension Project {
         if targets.contains(.app) {
             let bundleSuffix = "demo"
             let infoPlist = Project.demoInfoPlist
+            let entitlementsPath = "App.entitlements"
             
             let target = Target.target(
                 name: name,
@@ -56,7 +57,7 @@ public extension Project {
                 infoPlist: .extendingDefault(with: infoPlist),
                 sources: ["Sources/**/*.swift"],
                 resources: [.glob(pattern: "Resources/**", excluding: [])],
-                entitlements: nil,
+                entitlements: .init("App.entitlements"),
                 scripts: [.SwiftLintString],
                 dependencies: [
                     internalDependencies,
