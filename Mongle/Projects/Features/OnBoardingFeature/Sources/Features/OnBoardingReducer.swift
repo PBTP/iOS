@@ -12,7 +12,6 @@ import ComposableArchitecture
 @Reducer(state: .equatable)
 public enum OnBoardingReducer {
     case agree(AgreeStore)
-    case authentication(KaKaoAuthCore)
     
     public static var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -20,16 +19,14 @@ public enum OnBoardingReducer {
             case .agree:
                 state = .agree(AgreeStore.State())
                 return .none
-            case .authentication:
-                state = .authentication(KaKaoAuthCore.State())
-                return .none
             }
         }
         .ifCaseLet(\.agree, action: \.agree) {
             AgreeStore()
         }
-        .ifCaseLet(\.authentication, action: \.authentication) {
-            KaKaoAuthCore()
-        }
     }
+}
+
+public enum OnBoardingAction {
+    case agree(AgreeStore.Action)
 }
