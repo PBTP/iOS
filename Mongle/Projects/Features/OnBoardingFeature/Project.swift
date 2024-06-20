@@ -12,5 +12,6 @@ let project = Project.makeModule(
     name: Features.onBoardingFeature.name,
     targets: [.frameWork, .demo],
     directoryPath: Features.onBoardingFeature.path.pathString,
-    internalDependencies: [Features.baseFeature.project]
+    internalDependencies: [Features.baseFeature.project],
+    entitlements: .init("App.entitlements")
 )

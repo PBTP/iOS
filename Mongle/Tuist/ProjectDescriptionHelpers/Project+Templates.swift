@@ -11,6 +11,7 @@ public extension Project {
         externalDependencies: [TargetDependency] = [],  // 외부 라이브러리 의존성
         dependencies: [TargetDependency] = [],
         hasResources: Bool = false,
+        entitlements: Entitlements? = nil,
         schemes: [Scheme] = []
     ) -> Project {
         
@@ -46,7 +47,6 @@ public extension Project {
         if targets.contains(.app) {
             let bundleSuffix = "demo"
             let infoPlist = Project.demoInfoPlist
-            let entitlementsPath = "App.entitlements"
             
             let target = Target.target(
                 name: name,
@@ -105,6 +105,7 @@ public extension Project {
                 infoPlist: .extendingDefault(with: Project.demoInfoPlist),
                 sources: ["Demo/Sources/**/*.swift"],
                 resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
+                entitlements: entitlements,
                 dependencies: [
                     deps,
                     [

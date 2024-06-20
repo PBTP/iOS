@@ -20,6 +20,7 @@ public struct LoginView: View {
     
     public init() {
         if let appKey = ProcessInfo.processInfo.environment["KAKAO_APP_KEY"] {
+            KakaoSDK.initSDK(appKey: appKey)
         }
     }
     
