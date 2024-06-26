@@ -9,6 +9,7 @@
 import AuthenticationServices
 import ComposableArchitecture
 import Core
+import HomeFeature
 import SwiftUI
 import Ui
 import KakaoSDKCommon
@@ -18,35 +19,69 @@ import KakaoSDKUser
 public struct LoginView: View {
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
     
+    @State private var hasAccessToken = false
+    
     public init() {
-        if let appKey = ProcessInfo.processInfo.environment["KAKAO_APP_KEY"] {
-            KakaoSDK.initSDK(appKey: appKey)
-        }
+        KakaoSDK.initSDK(appKey: APPKey.kakaoAppKey)
     }
     
     public var body: some View {
-        
-        VStack(spacing: 12) {
-            HeaderComponent(headerText: "로그인", iconImageName: Image.xCloseIcon) {}
-            
-            Spacer()
-            
-            KaKaoLoginButton {
-                kakaoAuth.loginKakaoAccount()
+        NavigationStack {
+            VStack(spacing: 12) {
+                HeaderComponent(headerText: "로그인", iconImageName: Image.xCloseIcon) {}
+                
+                Spacer()
+                
+                KaKaoLoginButton {
+                    kakaoAuth.loginKakaoAccount() { success in
+                        if success {
+                            print("카카오 로그인 성공")
+                            hasAccessToken = true
+                        } else {
+                            print("카카오 로그인 실패")
+                            hasAccessToken = false
+                        }
+                    }
+                }
+                
+                AppleSigninButton()
+                
+                SkipLoginButton {
+                    hasAccessToken = true
+                }
+                    .padding(.top, 24)
+                    .padding(.bottom, 50)
             }
-            
-            AppleSigninButton()
-            
-            SkipLoginButton {}
-                .padding(.top, 24)
-                .padding(.bottom, 50)
+            .padding(.horizontal, 20)
+            .onOpenURL(perform: { url in
+                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                    _ = AuthController.handleOpenUrl(url: url)
+                }
+            })
+            .onReceive(kakaoAuth.$customer) { customer in
+                if customer.accessToken != nil {
+                    hasAccessToken = true
+                }
+            }
+            .navigationDestination(isPresented: $hasAccessToken) {
+                HomeView()
+                    .navigationBarBackButtonHidden()
+                    .overlay(alignment: .bottom) {
+                        NavigationLink {
+                            WebView()
+                        } label: {
+                            Text("WebView 연결")
+                                .font(.mgTitle2)
+                                .foregroundStyle(Color.mongleGrayScale0)
+                                .padding(.vertical, 17)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.mongleColorPrimary300)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }
+                        
+                    }
+            }
         }
-        .padding(.horizontal, 20)
-        .onOpenURL(perform: { url in
-            if (AuthApi.isKakaoTalkLoginUrl(url)) {
-                _ = AuthController.handleOpenUrl(url: url)
-            }
-        })
     }
 }
 
@@ -87,5 +122,8 @@ struct AppleSigninButton : View {
 }
 
 #Preview {
-    LoginView()
+    NavigationStack {
+        LoginView()
+            .environmentObject(KaKaoAuthCore())
+    }
 }
