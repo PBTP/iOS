@@ -13,9 +13,10 @@ class NetworkManager {
     
     private init() {}
     
-    func sendUserData(customer: Customer) {
-        guard let url = URL(string: "https://api.mgmg.life/v1/auth/login") else {
+    func sendUserData(customer: Customer, completion: @escaping (Result<Customer, Error>) -> Void) {
+        guard let url = URL(string: API.authLogin) else {
             print("Error creating URL")
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error creating URL"])))
             return
         }
         
@@ -36,36 +37,47 @@ class NetworkManager {
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error sending user data: \(error)")
+                    completion(.failure(error))
                     return
                 }
                 
                 if let httpResponse = response as? HTTPURLResponse {
                     print("HTTP Response Status Code: \(httpResponse.statusCode)")
                     
-                    if let data = data, let responseString = String(data: data, encoding: .utf8) {
-                        print("Response Data: \(responseString)")
-                        
-                        if let customer = JsonDecoder.shared.decodeCustomer(from: responseString) {
-                            print("Customer UUID: \(customer.uuid ?? "nil")")
-                            print("Customer Name: \(customer.customerName ?? "nil")")
-                            print("Auth Provider: \(customer.authProvider ?? "nil")")
-                            print("Access Token: \(customer.accessToken ?? "nil")")
-                            print("Refresh Token: \(customer.refreshToken ?? "nil")")
-                        } else {
-                            print("Failed to decode customer")
-                        }
-                    }
-                    
                     if (200...299).contains(httpResponse.statusCode) {
-                        print("User data sent successfully")
+                        if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                            print("Response Data: \(responseString)")
+                            
+                            if let updatedCustomer = JsonDecoder.shared.decodeCustomer(from: responseString) {
+                                print("Customer UUID: \(updatedCustomer.uuid ?? "nil")")
+                                print("Customer Name: \(updatedCustomer.customerName ?? "nil")")
+                                print("Auth Provider: \(updatedCustomer.authProvider ?? "nil")")
+                                print("Access Token: \(updatedCustomer.accessToken ?? "nil")")
+                                print("Refresh Token: \(updatedCustomer.refreshToken ?? "nil")")
+                                
+                                DispatchQueue.main.async {
+                                    completion(.success(updatedCustomer))
+                                }
+                            } else {
+                                print("Failed to decode customer")
+                                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to decode customer"])))
+                            }
+                        } else {
+                            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid data"])))
+                        }
                     } else {
                         print("Failed to send user data")
+                        completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "HTTP error"])))
                     }
+                } else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response"])))
                 }
             }
             task.resume()
         } catch {
             print("Error creating JSON data: \(error)")
+            completion(.failure(error))
         }
     }
 }
+
