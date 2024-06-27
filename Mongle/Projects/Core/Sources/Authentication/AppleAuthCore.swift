@@ -14,7 +14,7 @@ public struct AppleAuthCore {
     public init() {}
     
     @ObservableState
-    public struct State: Equatable {
+    public struct State {
         public var customer: Customer
         
         public init() {
@@ -42,7 +42,9 @@ public struct AppleAuthCore {
                 
                 state.customer.authProvider = "APPLE"
                 
-                NetworkManager.shared.sendUserData(customer: state.customer)
+                NetworkManager.shared.sendUserData(customer: state.customer) { success in
+                    
+                }
                 
                 return .none
                 

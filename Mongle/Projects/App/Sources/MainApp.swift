@@ -16,9 +16,7 @@ struct Mongle: App {
     @StateObject var kakaoAuth = KaKaoAuthCore()
     
     init() {
-        if let appKey = ProcessInfo.processInfo.environment["KAKAO_APP_KEY"] {
-            KakaoSDK.initSDK(appKey: appKey)
-        }
+        KakaoSDK.initSDK(appKey: APPKey.kakaoAppKey)
     }
     
     var body: some Scene {

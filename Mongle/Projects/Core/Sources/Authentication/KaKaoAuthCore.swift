@@ -16,7 +16,7 @@ public class KaKaoAuthCore: ObservableObject {
         self.customer = Customer()
     }
     
-    public func loginKakaoAccount() {
+    public func loginKakaoAccount(completion: @escaping (Bool) -> Void) {
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                 if let error = error {
@@ -25,7 +25,13 @@ public class KaKaoAuthCore: ObservableObject {
                 else {
                     print("loginWithKakaoTalk() success.")
                     
-                    self.getUserInfo()
+                    self.getUserInfo() { success in
+                        if success {
+                            completion(true)
+                        } else {
+                            completion(false)
+                        }
+                    }
                 }
             }
         } else {
@@ -36,13 +42,19 @@ public class KaKaoAuthCore: ObservableObject {
                 else {
                     print("loginWithKakaoAccount() success.")
                     
-                    self.getUserInfo()
+                    self.getUserInfo() { success in
+                        if success {
+                            completion(true)
+                        } else {
+                            completion(false)
+                        }
+                    }
                 }
             }
         }
     }
     
-    private func getUserInfo() {
+    private func getUserInfo(completion: @escaping (Bool) -> Void) {
         UserApi.shared.me() { [weak self] (user, error) in
             if let error = error {
                 print(error)
@@ -62,7 +74,18 @@ public class KaKaoAuthCore: ObservableObject {
                 
                 print(self.customer)
                 
-                NetworkManager.shared.sendUserData(customer: customer)
+                NetworkManager.shared.sendUserData(customer: customer) { result in
+                    switch result {
+                    case .success(let updatedCustomer):
+                        self.customer.accessToken = updatedCustomer.accessToken
+                        self.customer.refreshToken = updatedCustomer.refreshToken
+                        completion(true)
+                        print("User data sent and processed successfully")
+                    case .failure(let error):
+                        completion(false)
+                        print("Failed to send or process user data: \(error)")
+                    }
+                }
             }
         }
     }

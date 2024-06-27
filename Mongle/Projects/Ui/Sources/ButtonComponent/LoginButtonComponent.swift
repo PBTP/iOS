@@ -13,10 +13,19 @@ public func KaKaoLoginButton(action: @escaping () -> Void) -> some View {
         print("카카오 로그인 버튼 클릭")
         action()
     } label: {
-        Image.kakakaoLogin
-            .resizable()
-            .scaledToFit()
+        RoundedRectangle(cornerRadius: 8)
+            .foregroundStyle(Color.kakaoLoginBackGround)
+            .frame(height: 50)
             .frame(maxWidth: .infinity)
+            .overlay {
+                HStack {
+                    Image.kakoLogo
+                    
+                    Text("카카오로 시작하기")
+                        .font(.mgTitle2)
+                        .foregroundStyle(Color.black)
+                }
+            }
     }
 }
 

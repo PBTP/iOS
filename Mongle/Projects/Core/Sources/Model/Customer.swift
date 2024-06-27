@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct Customer: Codable, Equatable {
-    var uuid: String?
-    var customerName: String?
-    var authProvider: String?
-    var accessToken: String?
-    var refreshToken: String?
+public struct Customer: Codable {
+    public var uuid: String?
+    public var customerName: String?
+    public var authProvider: String?
+    public var accessToken: String?
+    public var refreshToken: String?
     
     public init(
         uuid: String? = nil,
