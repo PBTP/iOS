@@ -27,5 +27,6 @@ public extension Image {
     static let searchIcon = UiAsset.Images.searchIcon.swiftUIImage
     static let xCircleIcon = UiAsset.Images.xCircleIcon.swiftUIImage
     static let xCloseIcon = UiAsset.Images.xCloseIcon.swiftUIImage
+    static let kakoLogo = UiAsset.Images.kakaoLogo.swiftUIImage
 }
 

@@ -36,5 +36,8 @@ public extension Color {
     static let mongleGrayScale800 = Color(asset:UiAsset.Colors.mongleGrayScale800)
     static let mongleGrayScale900 = Color(asset:UiAsset.Colors.mongleGrayScale900)
     static let mongleGrayScale1000 = Color(asset:UiAsset.Colors.mongleGrayScale1000)
+    
+    // login
+    static let kakaoLoginBackGround = Color(asset:UiAsset.Colors.kakaoLoginColor)
 }
 
