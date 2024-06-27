@@ -36,6 +36,18 @@ class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "buttonClicked", let messageBody = message.body as? String {
             print("Message from JavaScript: \(messageBody)")
+            
+            // UIAlertController를 사용하여 알림을 표시
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "알림", message: messageBody, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                
+                // 현재 활성화된 씬의 최상위 뷰 컨트롤러를 가져와서 알림을 표시
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let rootViewController = windowScene.windows.first?.rootViewController {
+                    rootViewController.present(alert, animated: true, completion: nil)
+                }
+            }
         }
     }
 }
