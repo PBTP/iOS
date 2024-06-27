@@ -40,7 +40,7 @@ public struct WebView: View {
             .buttonStyle(ConfirmButtonStyle(isDisabled: false))
         }
         .onAppear {
-            let request = URLRequest(url: URL(string: "https://bulmang.github.io/")!)
+            let request = URLRequest(url: URL(string: Web.url(for: "reservation"))!)
             self.webUiView = WebUiView(request: request, kakaoAuthCore: kakaoAuth)
         }
         .padding()
