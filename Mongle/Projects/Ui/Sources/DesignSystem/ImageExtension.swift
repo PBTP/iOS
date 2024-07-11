@@ -9,7 +9,7 @@
 import SwiftUI
 
 public extension Image {
-    static let appleLogin = UiAsset.Images.appleLogin.swiftUIImage
+    // Icons
     static let arrowLeftIcon = UiAsset.Images.arrowLeftIcon.swiftUIImage
     static let bellIcon = UiAsset.Images.bellIcon.swiftUIImage
     static let calendarIcon = UiAsset.Images.calendarIcon.swiftUIImage
@@ -19,7 +19,6 @@ public extension Image {
     static let chevronRightIcon = UiAsset.Images.chevronRightIcon.swiftUIImage
     static let gearIcon = UiAsset.Images.gearIcon.swiftUIImage
     static let heartEmptyIcon = UiAsset.Images.heartEmptyIcon.swiftUIImage
-    static let kakakaoLogin = UiAsset.Images.kakaoLogin.swiftUIImage
     static let markerPinIcon = UiAsset.Images.markerPinIcon.swiftUIImage
     static let pencilIcon = UiAsset.Images.pencilIcon.swiftUIImage
     static let plucIcon = UiAsset.Images.plucIcon.swiftUIImage
@@ -27,6 +26,14 @@ public extension Image {
     static let searchIcon = UiAsset.Images.searchIcon.swiftUIImage
     static let xCircleIcon = UiAsset.Images.xCircleIcon.swiftUIImage
     static let xCloseIcon = UiAsset.Images.xCloseIcon.swiftUIImage
+    
+    // Logins
+    static let appleLogin = UiAsset.Images.appleLogin.swiftUIImage
     static let kakoLogo = UiAsset.Images.kakaoLogo.swiftUIImage
+    static let kakakaoLogin = UiAsset.Images.kakaoLogin.swiftUIImage
+    
+    // Profiles
+    static let profileDefaultImage = UiAsset.Images.profileDefaultImage.swiftUIImage
+    static let pencilEdit = UiAsset.Images.pencilEdit.swiftUIImage
 }
 
