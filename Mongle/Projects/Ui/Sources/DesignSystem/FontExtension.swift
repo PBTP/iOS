@@ -23,6 +23,7 @@ public extension Font {
     static let mgBody2 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 16)
     static let mgBody3 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 14)
     static let mgBody4 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 13)
+    static let mgBody4SemiBold = UiFontFamily.Pretendard.semiBold.swiftUIFont(size: 13)
     
     // Caption
     static let mgCaption1 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 11)
