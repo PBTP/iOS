@@ -116,6 +116,27 @@ public func strokeButton(_ buttonText: String, buttonColor: Color, textColor: Co
     }
 }
 
+public func ProfileImageButton(action: @escaping () -> Void) -> some View {
+    Button {
+        print("Profile image button clicked")
+        action()
+    } label: {
+        ZStack {
+            Image.profileDefaultImage
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+            .overlay(alignment: .bottomTrailing) {
+                Image.pencilEdit
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                    .offset(x: 8, y: 8)
+            }
+        }
+    }
+}
+
 #Preview {
     ZStack {
         Color.mongleGrayScale200
