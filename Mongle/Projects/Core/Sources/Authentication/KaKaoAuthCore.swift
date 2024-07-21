@@ -11,6 +11,7 @@ import KakaoSDKUser
 
 public class KaKaoAuthCore: ObservableObject {
     @Published public var customer: Customer
+    @Published public var hasToken = false
     
     public init() {
         self.customer = Customer()

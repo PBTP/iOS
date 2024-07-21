@@ -36,10 +36,10 @@ public struct LoginView: View {
                     kakaoAuth.loginKakaoAccount() { success in
                         if success {
                             print("카카오 로그인 성공")
-                            hasAccessToken = true
+                            kakaoAuth.hasToken = true
                         } else {
                             print("카카오 로그인 실패")
-                            hasAccessToken = false
+                            kakaoAuth.hasToken = false
                         }
                     }
                 }
@@ -47,7 +47,7 @@ public struct LoginView: View {
                 AppleSigninButton()
                 
                 SkipLoginButton {
-                    hasAccessToken = true
+                    kakaoAuth.hasToken = true
                 }
                     .padding(.top, 24)
                     .padding(.bottom, 50)
@@ -60,32 +60,16 @@ public struct LoginView: View {
             })
             .onReceive(kakaoAuth.$customer) { customer in
                 if customer.accessToken != nil {
-                    hasAccessToken = true
+                    kakaoAuth.hasToken = true
                 }
-            }
-            .navigationDestination(isPresented: $hasAccessToken) {
-                HomeView()
-                    .navigationBarBackButtonHidden()
-                    .overlay(alignment: .bottom) {
-                        NavigationLink {
-                            WebView()
-                        } label: {
-                            Text("WebView 연결")
-                                .font(.mgTitle2)
-                                .foregroundStyle(Color.mongleGrayScale0)
-                                .padding(.vertical, 17)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.mongleColorPrimary300)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                        }
-                        
-                    }
             }
         }
     }
 }
 
 struct AppleSigninButton : View {
+    @EnvironmentObject var kakaoAuth: KaKaoAuthCore
+    
     let store = Store(initialState: AppleAuthCore.State()) {
         AppleAuthCore().body._printChanges()
     }
@@ -104,7 +88,7 @@ struct AppleSigninButton : View {
                         switch authResults.credential{
                         case let appleIDCredential as ASAuthorizationAppleIDCredential:
                             store.send(.appleButtonTapped(appleIDCredential))
-                            
+                            kakaoAuth.hasToken = true
                         default:
                             break
                         }
