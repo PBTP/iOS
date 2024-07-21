@@ -43,6 +43,7 @@ public extension Project {
         "CFBundleDevelopmentRegion": "ko",
         "CFBundleIdentifier": "\(Environment.bundlePrefix).demo",
         "DEFINES_MODULE": "NO",
+        "NSPhotoLibraryUsageDescription" : "사진첩 접근 권한이 필요합니다.",
         "LSApplicationQueriesSchemes" : [
             "kakaokompassauth",
             "kakaolink"
