@@ -29,11 +29,16 @@ struct PersonProfileArea: View {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                
-                iconHorizontalButton("몽글몽글", buttonColor: Color.clear, textColor: Color.black, textFont: .mgTitle1, verticalPadding: 4, horizontalPadding: 0, radius: 0, iconImage: Image.chevronRightIcon, spacing: 6, iconLeft: false) {
+                HStack(spacing: 6) {
+                    Text("몽글몽글")
+                        .font(.mgTitle1)
+                        .foregroundColor(Color.black)
+                    
+                    Image.chevronRightIcon
                 }
-                
-                
+                .padding(.vertical, 4)
+                .padding(.horizontal, 0)
+
                 Text("양천구 목동")
                     .font(.mgBody4)
                     .foregroundStyle(Color.mongleGrayScale800)

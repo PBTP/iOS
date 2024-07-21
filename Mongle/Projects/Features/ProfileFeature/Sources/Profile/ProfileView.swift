@@ -13,23 +13,31 @@ public struct ProfileView: View {
     public init() {}
     
     public var body: some View {
-        VStack(spacing: 0) {
-            TabHeaderComponent(headerText: "마이", iconImageName: Image.gearIcon) { }
-            
-            VStack(spacing: 32) {
-                PersonProfileArea()
+        NavigationStack {
+            VStack(spacing: 0) {
+                TabHeaderComponent(headerText: "마이", iconImageName: Image.gearIcon) { }
                 
-                PetProfileArea()
+                VStack(spacing: 32) {
+                    NavigationLink(
+                        destination: EditView().navigationBarHidden(true)
+                    ) {
+                        PersonProfileArea()
+                    }
+                    
+                    PetProfileArea()
+                    
+                    FavoriteStoreArea()
+                }
+                Spacer()
                 
-                FavoriteStoreArea()
             }
-            Spacer()
-            
+            .padding(.horizontal, 20)
         }
-        .padding(.horizontal, 20)
     }
 }
 
 #Preview {
-    ProfileView()
+    NavigationStack {
+        ProfileView()
+    }
 }
