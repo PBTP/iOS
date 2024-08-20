@@ -42,7 +42,7 @@ public struct AppleAuthCore {
                 
                 state.customer.authProvider = "APPLE"
                 
-                NetworkManager.shared.sendUserData(customer: state.customer) { success in
+                NetworkManager().sendUserData(customer: state.customer) { success in
                     
                 }
                 

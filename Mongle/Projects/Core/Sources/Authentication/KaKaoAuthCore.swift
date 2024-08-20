@@ -12,6 +12,7 @@ import KakaoSDKUser
 public class KaKaoAuthCore: ObservableObject {
     @Published public var customer: Customer
     @Published public var hasToken = false
+    @Published public var tempLocation: String?
     
     public init() {
         self.customer = Customer()
@@ -75,7 +76,7 @@ public class KaKaoAuthCore: ObservableObject {
                 
                 print(self.customer)
                 
-                NetworkManager.shared.sendUserData(customer: customer) { result in
+                NetworkManager().sendUserData(customer: customer) { result in
                     switch result {
                     case .success(let updatedCustomer):
                         self.customer.accessToken = updatedCustomer.accessToken
