@@ -16,12 +16,22 @@ struct MapWebView: View {
     
     @State private var webUiView: MapWebUiView?
     
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         VStack {
             if let webUiView = webUiView {
+                HeaderComponent(headerText: "위치 선택", iconImageName: Image.arrowLeftIcon) {
+                    dismiss()
+                }
+                .padding(.horizontal, 20)
+                
                 webUiView
                     .ignoresSafeArea()
             }
+        }
+        .onChange(of: kakaoAuth.tempLocation) { _ in
+            dismiss()
         }
         .onAppear {
             let request = URLRequest(url: URL(string: Web.url(for: "location"))!)
@@ -58,17 +68,10 @@ class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate 
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "getAddressWebview", let messageBody = message.body as? String {
-            print("Message from JavaScript: \(messageBody)")
+            print("location: \(String(describing: kakaoAuthCore.customer.location))")
             
-            DispatchQueue.main.async {
-                let alert = UIAlertController(title: "알림", message: messageBody, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let rootViewController = windowScene.windows.first?.rootViewController {
-                    rootViewController.present(alert, animated: true, completion: nil)
-                }
-            }
+            kakaoAuthCore.tempLocation = JsonDecoder().formatAddress(from: messageBody)
+            print("location: \(String(describing: kakaoAuthCore.tempLocation))")
         }
     }
 }
@@ -100,4 +103,5 @@ struct MapWebUiView: UIViewRepresentable {
 
 #Preview {
     MapWebView()
+        .environmentObject(KaKaoAuthCore())
 }
