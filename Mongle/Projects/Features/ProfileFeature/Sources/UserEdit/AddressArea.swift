@@ -6,19 +6,24 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
+import Core
 import SwiftUI
+import Ui
 
 struct AddressArea: View {
+    @EnvironmentObject var kakaoAuth: KaKaoAuthCore
+    
     @Binding var isParkButtonActive: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("방문 주소")
+            Text("방문 주소 *")
                 .font(.mgBody3)
                 .foregroundStyle(Color.mongleGrayScale700)
             
             NavigationLink {
                 MapWebView()
+                    .navigationBarHidden(true)
             } label: {
                 HStack(spacing: 10) {
                     Image.searchGrayIcon
@@ -26,24 +31,23 @@ struct AddressArea: View {
                         .scaledToFit()
                         .frame(width: 22, height: 22)
                     
-                    Text("주소 검색")
-                        .font(.mgBody2)
-                        .foregroundColor(Color.mongleGrayScale300)
+                    Text(kakaoAuth.tempLocation ?? "주소 검색")
+                        .font(kakaoAuth.tempLocation == nil ? .mgBody2 : .mgBody3)
+                        .foregroundColor(kakaoAuth.tempLocation == nil ? Color.mongleGrayScale300 : Color.black)
+                        .multilineTextAlignment(.leading)
                 }
+                .font(.mgBody1)
+                .foregroundColor(Color.black)
                 .padding(.leading, 16)
                 .padding(.vertical, 12)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.mongleGrayScale100)
+                .background(Color.clear)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
+                .overlay(alignment: .trailing) {
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color.mongleGrayScale100, lineWidth: 1)
+                }
             }
-            Text("상세 주소")
-                .font(.mgBody2)
-                .foregroundColor(Color.mongleGrayScale300)
-                .padding(.leading, 16)
-                .padding(.vertical, 12)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.mongleGrayScale100)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
             
             Button {
                 isParkButtonActive.toggle()
@@ -71,4 +75,5 @@ struct AddressArea: View {
 
 #Preview {
     AddressArea(isParkButtonActive: .constant(false))
+        .environmentObject(KaKaoAuthCore())
 }
