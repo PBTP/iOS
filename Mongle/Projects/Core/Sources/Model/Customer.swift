@@ -14,18 +14,21 @@ public struct Customer: Codable {
     public var authProvider: String?
     public var accessToken: String?
     public var refreshToken: String?
+    public var location: String?
     
     public init(
         uuid: String? = nil,
         customerName: String? = nil,
         authProvider: String? = nil,
         accessToken: String? = nil,
-        refreshToken: String? = nil
+        refreshToken: String? = nil,
+        location: String? = nil
     ) {
         self.uuid = uuid
         self.customerName = customerName
         self.authProvider = authProvider
         self.accessToken = accessToken
         self.refreshToken = refreshToken
+        self.location = location
     }
 }
