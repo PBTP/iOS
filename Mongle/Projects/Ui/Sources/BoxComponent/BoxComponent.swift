@@ -27,12 +27,12 @@ public struct InfoBox: View {
                 .foregroundStyle(Color.mongleGrayScale700)
             
             Text(text)
-                .font(.mgBody2)
+                .font(.mgBody1)
                 .foregroundColor(Color.black)
                 .padding(.leading, 16)
                 .padding(.vertical, 12)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.mongleGrayScale100)
+                .background(Color.clear)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .overlay(alignment: .trailing) {
                     RoundedRectangle(cornerRadius: 4)
@@ -46,7 +46,8 @@ public struct InfoBox: View {
                             .foregroundStyle(Color.mongleColorPrimary300)
                             .offset(x: -16)
                     }
-            }
+                }
+        }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -56,7 +57,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 16) {
             InfoBox(
-                title: "이름",
+                title: "방문주소 *",
                 text: "사용자",
                 subtext: nil,
                 verificationText: nil
