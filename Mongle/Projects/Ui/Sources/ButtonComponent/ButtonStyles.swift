@@ -191,3 +191,39 @@ public struct StrokeButtonStyle: ButtonStyle {
             .opacity(configuration.isPressed ? 0.8 : 1.0)
     }
 }
+
+#Preview {
+    ZStack {
+        Color.mongleGrayScale200
+            .ignoresSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 20) {
+            Button {
+                print("Button pressed")
+            } label: {
+                Text("Button")
+            }
+            .buttonStyle(MongleButtonStyle(buttonColor: Color.mongleColorPrimary300, textColor: Color.mongleGrayScale0, textFont: .mgTitle2, verticalPadding: 17, horizontalPadding: 0, radius: 8))
+            
+            Button {
+                print("Button pressed")
+            } label: {
+                Text("Button")
+            }
+            .buttonStyle(IconHorizontalButtonStyle(buttonColor: Color.mongleColorPrimary300, textColor: Color.mongleGrayScale0, textFont: .mgTitle2, verticalPadding: 17, horizontalPadding: 10, radius: 8, iconImage: Image.searchIcon, spacing: 10, iconLeft: true))
+            
+            Button {
+                print("Button pressed")
+            } label: {
+                Text("Button")
+            }
+            .buttonStyle(InfinityStrokeButtonStyle(buttonColor: Color.mongleColorPrimary300, textColor: Color.mongleGrayScale0, strokeColor: Color.green, textFont: .mgTitle2, verticalPadding: 17, radius: 8, lineWidth: 10))
+        
+            Button {
+                print("Button pressed")
+            } label: {
+                Text("Button")
+            }
+            .buttonStyle(StrokeButtonStyle(buttonColor: Color.clear, textColor: Color.mongleGrayScale0, strokeColor: Color.mongleColorPrimary300, textFont: .mgTitle2, verticalPadding: 17, horizontalPadding: 0, radius: 8, lineWidth: 1))
+        }
+    }
+}
