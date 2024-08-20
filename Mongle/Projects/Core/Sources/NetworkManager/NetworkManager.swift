@@ -8,10 +8,9 @@
 
 import Foundation
 
-class NetworkManager {
-    static let shared = NetworkManager()
+public class NetworkManager {
     
-    private init() {}
+    public init() {}
     
     func sendUserData(customer: Customer, completion: @escaping (Result<Customer, Error>) -> Void) {
         guard let url = URL(string: API.authLogin) else {
@@ -48,7 +47,7 @@ class NetworkManager {
                         if let data = data, let responseString = String(data: data, encoding: .utf8) {
                             print("Response Data: \(responseString)")
                             
-                            if let updatedCustomer = JsonDecoder.shared.decodeCustomer(from: responseString) {
+                            if let updatedCustomer = JsonDecoder().decodeCustomer(from: responseString) {
                                 print("Customer UUID: \(updatedCustomer.uuid ?? "nil")")
                                 print("Customer Name: \(updatedCustomer.customerName ?? "nil")")
                                 print("Auth Provider: \(updatedCustomer.authProvider ?? "nil")")
@@ -79,5 +78,52 @@ class NetworkManager {
             completion(.failure(error))
         }
     }
+
+    public func updateCustomer(customer: Customer, token: String) {
+        guard let url = URL(string: "https://api.mgmg.life/v1/customer") else {
+            print("Invalid URL")
+            return
+        }
+
+        // JSON 인코딩
+        guard let jsonData = try? JSONEncoder().encode(customer) else {
+            print("Failed to encode JSON")
+            return
+        }
+
+        // URLRequest 설정
+        var request = URLRequest(url: url, timeoutInterval: Double.infinity)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        request.httpBody = jsonData
+
+        // URLSession을 통해 요청 전송
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                return
+            }
+
+            if (200...299).contains(httpResponse.statusCode) {
+                print("Success: \(httpResponse.statusCode)")
+            } else {
+                print("Failed: \(httpResponse.statusCode)")
+            }
+
+            if let data = data, let responseBody = String(data: data, encoding: .utf8) {
+                print("Response Body: \(responseBody)")
+            }
+        }
+
+        task.resume()
+    }
+
+
 }
 
