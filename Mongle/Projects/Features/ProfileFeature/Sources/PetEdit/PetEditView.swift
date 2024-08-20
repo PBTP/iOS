@@ -22,10 +22,6 @@ struct PetEditView: View {
             
             Spacer()
             
-            ProfileImageButton()
-            
-            Spacer()
-            
             VStack(spacing: 32) {
                 InfoBox(
                     title: "이름",
@@ -59,9 +55,5 @@ struct PetEditView: View {
 }
 
 #Preview {
-    EditView()
-}
-
-#Preview {
-    PetEditView()
+    EditView(image: .constant(nil))
 }

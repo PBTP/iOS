@@ -34,23 +34,17 @@ public struct InfoBox: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.mongleGrayScale100)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-            
-            if let subtext = subtext {
-                Text(subtext)
-                    .font(.mgBody2)
-                    .foregroundColor(Color.black)
-                    .padding(.leading, 16)
-                    .padding(.vertical, 12)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.mongleGrayScale100)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(alignment: .trailing) {
-                        if let verificationText = verificationText {
-                            Text(verificationText)
-                                .font(.mgBody3)
-                                .foregroundStyle(Color.mongleColorPrimary300)
-                                .offset(x: -16)
-                        }
+                .overlay(alignment: .trailing) {
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color.mongleGrayScale100, lineWidth: 1)
+                }
+                .overlay(alignment: .trailing) {
+                    if let subtext = subtext {
+                    if let verificationText = verificationText {
+                        Text(verificationText)
+                            .font(.mgBody3)
+                            .foregroundStyle(Color.mongleColorPrimary300)
+                            .offset(x: -16)
                     }
             }
         }

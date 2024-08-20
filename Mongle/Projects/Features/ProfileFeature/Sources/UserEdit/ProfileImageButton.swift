@@ -11,43 +11,42 @@ import PhotosUI
 import Ui
 
 struct ProfileImageButton: View {
-    @State private var image: UIImage? = nil
+    @Binding var image: UIImage?
     @State private var isPickerPresented = false
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var showSettingsAlert = false
     
     var body: some View {
-        Button {
-            print("Profile image button clicked")
-            checkPhotoLibraryPermission()
-        } label: {
-                if let image = image {
-                    Image(uiImage: image)
-                           .resizable()
-                           .aspectRatio(contentMode: .fill)
-                           .frame(width: 100, height: 100)
-                           .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .overlay(alignment: .bottomTrailing) {
-                            Image.pencilEdit
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 24, height: 24)
-                                .offset(x: 8, y: 8)
-                        }
-                } else {
-                    Image.profileDefaultImage
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 100)
-                        .overlay(alignment: .bottomTrailing) {
-                            Image.pencilEdit
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 24, height: 24)
-                                .offset(x: 8, y: 8)
-                        }
-                }
+        VStack(spacing: 16) {
+            Text("프로필 사진")
+                .font(.mgBody3)
+                .foregroundColor(Color.mongleGrayScale700)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 40)
+            
+            if let image = image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 100, height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+            } else {
+                Image.profileDefaultImage
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+            }
+            
+            Button {
+                print("Profile image button clicked")
+                checkPhotoLibraryPermission()
+            } label: {
+                Text("사진 선택")
+                    .font(.mgBody3)
+                    .foregroundColor(Color.mongleGrayScale400)
+            }
+            .buttonStyle(StrokeButtonStyle(buttonColor: Color.clear, textColor: Color.mongleGrayScale0, strokeColor: Color.mongleGrayScale300, textFont: .mgTitle2, verticalPadding: 12, horizontalPadding: 16, radius: 5, lineWidth: 1))
         }
         .sheet(isPresented: $isPickerPresented) {
             ImagePicker(image: $image)
@@ -138,5 +137,5 @@ struct ImagePicker: UIViewControllerRepresentable {
 }
 
 #Preview {
-    ProfileImageButton()
+    ProfileImageButton(image: .constant(UIImage(named: "profileDefaultImage")))
 }

@@ -35,5 +35,8 @@ public extension Image {
     // Profiles
     static let profileDefaultImage = UiAsset.Images.profileDefaultImage.swiftUIImage
     static let pencilEdit = UiAsset.Images.pencilEdit.swiftUIImage
+    static let pencilLineIcon = UiAsset.Images.pencilLineIcon.swiftUIImage
+    static let phoneFillIcon = UiAsset.Images.phoneFillIcon.swiftUIImage
+    static let markerPinFillIcon = UiAsset.Images.markerPinFillIcon.swiftUIImage
 }
 
