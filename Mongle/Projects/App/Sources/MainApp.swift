@@ -21,7 +21,7 @@ struct Mongle: App {
     
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            MainView()
                 .environmentObject(kakaoAuth)
         }
     }
