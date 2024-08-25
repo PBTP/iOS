@@ -16,7 +16,7 @@ struct MainView: View {
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
     
     var body: some View {
-        if (kakaoAuth.customer.accessToken != nil) {
+        if kakaoAuth.customer.accessToken != nil {
             TabView {
                 HomeView()
                     .tabItem {
