@@ -12,6 +12,7 @@ public struct Customer: Codable {
     public var uuid: String?
     public var customerName: String?
     public var authProvider: String?
+    public var userType: String = "customer"
     public var accessToken: String?
     public var refreshToken: String?
     

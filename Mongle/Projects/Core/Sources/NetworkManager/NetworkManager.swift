@@ -26,6 +26,7 @@ class NetworkManager {
         
         let userData: [String: String?] = [
             "uuid": customer.uuid,
+            "userType": customer.userType,
             "customerName": customer.customerName ?? nil,
             "authProvider": customer.authProvider ?? nil,
         ]
