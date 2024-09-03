@@ -34,26 +34,21 @@ struct ChatWebView: View {
 }
 
 class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) { }
+    
     var kakaoAuthCore: KaKaoAuthCore
 
     init(kakaoAuthCore: KaKaoAuthCore) {
         self.kakaoAuthCore = kakaoAuthCore
     }
-    
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "showInfo", let messageBody = message.body as? String {
-            print("Message from JavaScript: \(messageBody)")
-            showAlert(messageBody)
-        }
-    }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard let token = kakaoAuthCore.customer.accessToken,
+        guard let token = kakaoAuthCore.customer.accessToken, 
                 let uuid = kakaoAuthCore.customer.uuid else {
             return
         }
 
-        webView.evaluateJavaScript("handleIosWebviewToken(\"\(token)\",\"\(uuid)\")") { result, error in
+        webView.evaluateJavaScript("handleIosWebviewToken('\(token), \(uuid)')") { result, error in
             if let error = error {
                 print("Error \(error.localizedDescription)")
                 return
@@ -66,19 +61,6 @@ class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate 
             }
         }
     }
-    
-    private func showAlert(_ message: String) {
-        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
-            print("Failed to get root view controller.")
-            return
-        }
-
-        let alertController = UIAlertController(title: "Message from WebView", message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-
-        rootViewController.present(alertController, animated: true, completion: nil)
-    }
-
 }
 
 struct ChatWebUIView: UIViewRepresentable {
