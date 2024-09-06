@@ -8,7 +8,7 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let workspaceName = "workspace"
+let workspaceName = "Mongle"
 
 let workspace = Workspace(
     name: workspaceName,
