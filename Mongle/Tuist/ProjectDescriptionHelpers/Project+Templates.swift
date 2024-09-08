@@ -21,7 +21,7 @@ public extension Project {
             Scheme.scheme(
                 name: "Mongle-prod",
                 shared: true,
-                buildAction: BuildAction.buildAction(targets: ["App"]),
+                buildAction: BuildAction.buildAction(targets: ["Mongle"]),
                 runAction: .runAction(
                     configuration: .debug,
                     preActions: [],
