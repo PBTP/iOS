@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 struct PetProfileArea: View {
     var body: some View {

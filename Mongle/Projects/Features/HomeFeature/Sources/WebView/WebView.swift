@@ -8,7 +8,7 @@
 
 import Core
 import SwiftUI
-import Ui
+import UI
 
 public struct WebView: View {
     public init() {}

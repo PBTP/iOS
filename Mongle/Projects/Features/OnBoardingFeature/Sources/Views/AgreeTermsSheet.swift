@@ -8,7 +8,7 @@
 
 import ComposableArchitecture
 import SwiftUI
-import Ui
+import UI
 
 public struct AgreeTermsSheet: View {
     let store: Store<AgreeStore.State, AgreeStore.Action>

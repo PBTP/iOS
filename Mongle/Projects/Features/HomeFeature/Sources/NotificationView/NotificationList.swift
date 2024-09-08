@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 struct NotificationList: View {
     var body: some View {

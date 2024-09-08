@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Core
 import HomeFeature
 import SwiftUI
-import Ui
+import UI
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser

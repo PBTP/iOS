@@ -2,7 +2,8 @@
 .DS_Store
 Mongle/Tuist/master.key
 /Mongle/Tuist/Signing
-Mongle/Tuist/ProjectDescriptionHelpers/APIKey.swift
+/Mongle/Tuist/ProjectDescriptionHelpers/APIKey.swift
 /Mongle/Projects/Core/Sources/Key
 /Mongle/Projects/Core/Sources/API
 /Mongle/Projects/Core/Sources/Web
+Secrets

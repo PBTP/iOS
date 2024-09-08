@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 struct PreviousReservationArea: View {
     var body: some View {
