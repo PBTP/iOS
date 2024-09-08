@@ -8,7 +8,7 @@
 
 import Core
 import SwiftUI
-import Ui
+import UI
 import WebKit
 
 struct ChatWebView: View {

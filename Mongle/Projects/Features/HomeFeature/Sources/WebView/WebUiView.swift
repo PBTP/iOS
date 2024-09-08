@@ -6,7 +6,7 @@
 
 import Core
 import SwiftUI
-import Ui
+import UI
 import WebKit
 
 class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate {

@@ -10,22 +10,22 @@ import SwiftUI
 
 public extension Font {
     // Heading
-    static let mgHeading1 = UiFontFamily.Pretendard.bold.swiftUIFont(size: 24)
-    static let mgHeading2 = UiFontFamily.Pretendard.bold.swiftUIFont(size: 22)
+    static let mgHeading1 = UIFontFamily.Pretendard.bold.swiftUIFont(size: 24)
+    static let mgHeading2 = UIFontFamily.Pretendard.bold.swiftUIFont(size: 22)
 
     // Title
-    static let mgTitle1 = UiFontFamily.Pretendard.semiBold.swiftUIFont(size: 17)
-    static let mgTitle2 = UiFontFamily.Pretendard.semiBold.swiftUIFont(size: 16)
-    static let mgTitle3 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 15)
+    static let mgTitle1 = UIFontFamily.Pretendard.semiBold.swiftUIFont(size: 17)
+    static let mgTitle2 = UIFontFamily.Pretendard.semiBold.swiftUIFont(size: 16)
+    static let mgTitle3 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 15)
 
     // Body
-    static let mgBody1 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 18)
-    static let mgBody2 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 16)
-    static let mgBody3 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 14)
-    static let mgBody4 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 13)
-    
+    static let mgBody1 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 18)
+    static let mgBody2 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 16)
+    static let mgBody3 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 14)
+    static let mgBody4 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 13)
+
     // Caption
-    static let mgCaption1 = UiFontFamily.Pretendard.medium.swiftUIFont(size: 11)
+    static let mgCaption1 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 11)
 }
 
 

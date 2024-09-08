@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 enum ViewState {
     case possible
@@ -48,7 +48,7 @@ struct ReservationList: View {
             }
             .padding(16)
             
-            ConfirmButton("리뷰 작성", isDisabeld: true) {
+            confirmButton("리뷰 작성", isDisabeld: true) {
                 
             }
             .padding(.horizontal, 16)

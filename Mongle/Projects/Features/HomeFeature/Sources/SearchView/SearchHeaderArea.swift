@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 struct SearchHeaderArea: View {
     var body: some View {

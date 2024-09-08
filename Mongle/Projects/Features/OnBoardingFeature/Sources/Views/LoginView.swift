@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Core
 import HomeFeature
 import SwiftUI
-import Ui
+import UI
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
@@ -32,7 +32,7 @@ public struct LoginView: View {
                 
                 Spacer()
                 
-                KaKaoLoginButton {
+                kakaoLoginButton {
                     kakaoAuth.loginKakaoAccount() { success in
                         if success {
                             print("카카오 로그인 성공")
@@ -46,7 +46,7 @@ public struct LoginView: View {
                 
                 AppleSigninButton()
                 
-                SkipLoginButton {
+                skipLoginButton {
                     hasAccessToken = true
                 }
                     .padding(.top, 24)

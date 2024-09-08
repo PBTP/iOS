@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 public struct CalendarDetailView: View {
     public init() {}

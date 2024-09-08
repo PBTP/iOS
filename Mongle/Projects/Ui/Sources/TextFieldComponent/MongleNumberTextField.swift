@@ -44,7 +44,7 @@ public struct MongleNumberTextField: View {
                         .foregroundStyle(Color.mongleColorPrimary300)
                         .padding(.trailing, 16)
                 } else if requestButtonActive {
-                    RequestButton("재요청") {}
+                    requestButton("재요청") {}
                         .padding(.trailing, 16)
                 }
             }
