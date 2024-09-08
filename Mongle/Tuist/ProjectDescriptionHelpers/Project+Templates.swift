@@ -19,7 +19,26 @@ public extension Project {
         var projectTargets: [Target] = []
         let schemes: [Scheme] = [
             Scheme.scheme(
-                name: "App",
+                name: "Mongle-prod",
+                shared: true,
+                buildAction: BuildAction.buildAction(targets: ["App"]),
+                runAction: .runAction(
+                    configuration: .debug,
+                    preActions: [],
+                    postActions: [],
+                    arguments: Arguments.arguments(
+                        environmentVariables: [
+                            "KAKAO_APP_KEY": EnvironmentVariable(stringLiteral: APIKey.kakaoAppKey)
+                        ],
+                        launchArguments: []
+                    ),
+                    options: .options(),
+                    diagnosticsOptions: .options(),
+                    expandVariableFromTarget: nil
+                )
+            ),
+            Scheme.scheme(
+                name: "Mongle-dev",
                 shared: true,
                 buildAction: BuildAction.buildAction(targets: ["App"]),
                 runAction: .runAction(
