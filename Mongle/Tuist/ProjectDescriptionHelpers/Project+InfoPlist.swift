@@ -33,7 +33,8 @@ public extension Project {
             ],
             "UISupportedInterfaceOrientations": [
                 "UlInterfaceOrientationPortrait"
-            ]
+            ],
+            "UIUserInterfaceStyle": "Light"
         ]
     }
 
