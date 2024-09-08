@@ -38,6 +38,6 @@ public extension Project {
         ]
     }
 
-    static let appInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "release")
-    static let demoInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "demo")
+    static let releaseInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "release")
+    static let devInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "dev")
 }
