@@ -71,6 +71,9 @@ public extension Project {
             projectTargets.append(target)
         }
         
+
+        // MARK: - FrameWork
+
         if targets.contains(.frameWork) {
             
             let target = Target.target(
@@ -82,6 +85,7 @@ public extension Project {
                 infoPlist: .default,
                 sources: ["Sources/**/*.swift"],
                 resources: hasResources ? [.glob(pattern: "Resources/**", excluding: [])] : [],
+                scripts: [.SwiftLintString],
                 dependencies: internalDependencies + externalDependencies,
                 settings: nil
             )
@@ -89,8 +93,8 @@ public extension Project {
             projectTargets.append(target)
         }
         
-        // MARK: - Feature Executable
-        
+        // MARK: - Demo
+
         if targets.contains(.demo) {
             createDirectoryAtCustomPath(folderName: "Demo", directoryPath: directoryPath)
             
@@ -106,6 +110,7 @@ public extension Project {
                 sources: ["Demo/Sources/**/*.swift"],
                 resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
                 entitlements: entitlements,
+                scripts: [.SwiftLintString],
                 dependencies: [
                     deps,
                     [
@@ -131,6 +136,7 @@ public extension Project {
                 infoPlist: .default,
                 sources: ["Tests/Sources/**/*.swift"],
                 resources: [.glob(pattern: "Tests/Resources/**", excluding: [])],
+                scripts: [.SwiftLintString],
                 dependencies: [
                     deps,
                     [
@@ -156,6 +162,7 @@ public extension Project {
                 deploymentTargets: deploymentTarget,
                 infoPlist: .default,
                 sources: ["UITests/Sources/**/*.swift"],
+                scripts: [.SwiftLintString],
                 dependencies: [
                     deps,
                     [
