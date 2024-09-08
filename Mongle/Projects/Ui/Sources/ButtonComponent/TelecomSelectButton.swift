@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 
 @Reducer
-public struct phoneNumberStore {
+public struct PhoneNumberStore {
     public init() {
     
     }
@@ -48,10 +48,10 @@ public struct phoneNumberStore {
 }
 
 public struct TelecomSelectButton: View {
-    let store: Store<phoneNumberStore.State, phoneNumberStore.Action>
+    let store: Store<PhoneNumberStore.State, PhoneNumberStore.Action>
     let action: () -> Void
     
-    public init(store: Store<phoneNumberStore.State, phoneNumberStore.Action>, action: @escaping () -> Void) {
+    public init(store: Store<PhoneNumberStore.State, PhoneNumberStore.Action>, action: @escaping () -> Void) {
         self.store = store
         self.action = action
     }
@@ -104,7 +104,7 @@ public struct TelecomSelectButton: View {
 
 #Preview {
     TelecomSelectButton(
-        store: Store(initialState: phoneNumberStore.State(data: ["test"])) {phoneNumberStore()}
+        store: Store(initialState: PhoneNumberStore.State(data: ["test"])) {PhoneNumberStore()}
     ) {}
 }
 

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public func KaKaoLoginButton(action: @escaping () -> Void) -> some View {
+public func kakaoLoginButton(action: @escaping () -> Void) -> some View {
     Button {
         print("카카오 로그인 버튼 클릭")
         action()
@@ -29,7 +29,7 @@ public func KaKaoLoginButton(action: @escaping () -> Void) -> some View {
     }
 }
 
-public func AppleLoginButton(action: @escaping () -> Void) -> some View {
+public func appleLoginButton(action: @escaping () -> Void) -> some View {
     Button {
         print("애플 로그인 버튼 클릭")
         action()
@@ -41,7 +41,7 @@ public func AppleLoginButton(action: @escaping () -> Void) -> some View {
     }
 }
 
-public func SkipLoginButton(action: @escaping () -> Void) -> some View {
+public func skipLoginButton(action: @escaping () -> Void) -> some View {
     Button {
         print("로그인 없이 이용하기 버튼 클릭")
         action()
@@ -56,9 +56,9 @@ public func SkipLoginButton(action: @escaping () -> Void) -> some View {
 
 #Preview {
     VStack(spacing: 50) {
-        KaKaoLoginButton {}
-        AppleLoginButton {}
-        SkipLoginButton {}
+        kakaoLoginButton {}
+        appleLoginButton {}
+        skipLoginButton {}
     }
 }
 

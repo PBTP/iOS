@@ -73,7 +73,7 @@ public struct AgreeTermsSheet: View {
                     }
                 }
                 
-                ConfirmButton("동의하고 계속하기", isDisabeld: false) {
+                confirmButton("동의하고 계속하기", isDisabeld: false) {
                     //                self.store.send(.child(.presented(AuthenticationReducer.Action.loginKakaoAccount)))
                 }
             }
