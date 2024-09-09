@@ -65,8 +65,8 @@ public extension Project {
         
         if targets.contains(.app) {
             let bundleSuffix = "demo"
-            let infoPlist = Project.demoInfoPlist
-            
+            let infoPlist = Project.devInfoPlist
+
             let target = Target.target(
                 name: name,
                 destinations: .iOS,
@@ -125,7 +125,7 @@ public extension Project {
                 product: .app,
                 bundleId: "\(Environment.bundlePrefix).demo",
                 deploymentTargets: deploymentTarget,
-                infoPlist: .extendingDefault(with: Project.demoInfoPlist),
+                infoPlist: .extendingDefault(with: Project.devInfoPlist),
                 sources: ["Demo/Sources/**/*.swift"],
                 resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
                 entitlements: entitlements,
