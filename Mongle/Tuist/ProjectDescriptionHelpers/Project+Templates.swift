@@ -15,8 +15,21 @@ public extension Project {
         schemes: [Scheme] = []
     ) -> Project {
         
+        //TODO: Relase, Dev 버전에 맞춰 bundleSuffix를 변경해야함.
+        let bundleSuffix = "dev"
         let deploymentTarget = Environment.deploymentTarget
         var projectTargets: [Target] = []
+        let settings: Settings? = .settings(
+            base: [
+                "DEVELOPMENT_TEAM": "\(APIKey.developmentTeam)",
+                "CODE_SIGN_STYLE": "Manual",
+                "PROVISIONING_PROFILE_SPECIFIER": "Mongle.dev",
+                "CODE_SIGN_IDENTITY": "\(APIKey.codeSignIdentity)"
+            ],
+            configurations: [
+            ]
+        )
+        
         let schemes: [Scheme] = [
             Scheme.scheme(
                 name: "App",
@@ -45,7 +58,6 @@ public extension Project {
         // MARK: - App
         
         if targets.contains(.app) {
-            let bundleSuffix = "demo"
             let infoPlist = Project.demoInfoPlist
             
             let target = Target.target(
@@ -65,7 +77,7 @@ public extension Project {
                     [
                     ]
                 ].flatMap { $0 },
-                settings: nil
+                settings: settings
             )
             
             projectTargets.append(target)
@@ -100,7 +112,7 @@ public extension Project {
                 name: "\(name)Demo",
                 destinations: .iOS,
                 product: .app,
-                bundleId: "\(Environment.bundlePrefix).demo",
+                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)",
                 deploymentTargets: deploymentTarget,
                 infoPlist: .extendingDefault(with: Project.demoInfoPlist),
                 sources: ["Demo/Sources/**/*.swift"],
@@ -111,7 +123,7 @@ public extension Project {
                     [
                     ]
                 ].flatMap { $0 },
-                settings: nil
+                settings: settings
             )
             
             projectTargets.append(target)
@@ -126,7 +138,7 @@ public extension Project {
                 name: "\(name)Tests",
                 destinations: .iOS,
                 product: .unitTests,
-                bundleId: "\(Environment.bundlePrefix).\(name)Tests",
+                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)Test",
                 deploymentTargets: deploymentTarget,
                 infoPlist: .default,
                 sources: ["Tests/Sources/**/*.swift"],
@@ -136,7 +148,7 @@ public extension Project {
                     [
                     ]
                 ].flatMap { $0 },
-                settings: nil
+                settings: settings
             )
             
             projectTargets.append(target)
@@ -152,7 +164,7 @@ public extension Project {
                 name: "\(name)UITests",
                 destinations: .iOS,
                 product: .uiTests,
-                bundleId: "\(Environment.bundlePrefix).\(name)UITests",
+                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)UITest",
                 deploymentTargets: deploymentTarget,
                 infoPlist: .default,
                 sources: ["UITests/Sources/**/*.swift"],
@@ -161,7 +173,7 @@ public extension Project {
                     [
                     ]
                 ].flatMap { $0 },
-                settings: nil
+                settings: settings
             )
             
             projectTargets.append(target)

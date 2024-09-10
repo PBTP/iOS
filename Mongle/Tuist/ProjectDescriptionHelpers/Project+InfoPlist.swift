@@ -41,7 +41,7 @@ public extension Project {
         "CFBundleVersion": "\(Environment.bundleVersion)",
         "CFBundleDisplayName": "$(APP_DISPLAY_NAME)",
         "CFBundleDevelopmentRegion": "ko",
-        "CFBundleIdentifier": "\(Environment.bundlePrefix).demo",
+        "CFBundleIdentifier": "\(Environment.bundlePrefix).dev",
         "DEFINES_MODULE": "NO",
         "LSApplicationQueriesSchemes" : [
             "kakaokompassauth",
