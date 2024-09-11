@@ -34,12 +34,18 @@ struct ChatWebView: View {
 }
 
 class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) { }
     
     var kakaoAuthCore: KaKaoAuthCore
 
     init(kakaoAuthCore: KaKaoAuthCore) {
         self.kakaoAuthCore = kakaoAuthCore
+    }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "showInfo", let messageBody = message.body as? String {
+            print("Message from JavaScript: \(messageBody)")
+            showAlert(messageBody)
+        }
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -48,7 +54,7 @@ class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate 
             return
         }
 
-        webView.evaluateJavaScript("handleIosWebviewToken('\(token), \(uuid)')") { result, error in
+        webView.evaluateJavaScript("handleIosWebviewToken(\"\(token)\",\"\(uuid)\")") { result, error in
             if let error = error {
                 print("Error \(error.localizedDescription)")
                 return
@@ -60,6 +66,18 @@ class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate 
                 print("No data received or it's void function")
             }
         }
+    }
+    
+    private func showAlert(_ message: String) {
+        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
+            print("Failed to get root view controller.")
+            return
+        }
+
+        let alertController = UIAlertController(title: "Message from WebView", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+
+        rootViewController.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -77,6 +95,7 @@ struct ChatWebUIView: UIViewRepresentable {
     private static func createWebView(_ contentController: ContentController) -> WKWebView {
         let config = WKWebViewConfiguration()
         config.userContentController.add(contentController, name: "handleIosWebviewToken")
+        config.userContentController.add(contentController, name: "showInfo")
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = contentController
         return webView
