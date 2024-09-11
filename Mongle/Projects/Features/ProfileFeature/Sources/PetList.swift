@@ -8,7 +8,7 @@
 
 import Core
 import SwiftUI
-import Ui
+import UI
 
 struct PetList: View {
     @State private var dogImageUrl: String?

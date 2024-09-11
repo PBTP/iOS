@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 struct RecentSearchTextList: View {
     var body: some View {

@@ -8,7 +8,7 @@
 
 import Core
 import SwiftUI
-import Ui
+import UI
 
 struct CompanyListItem: View {
     @State var dogImageUrl: String?

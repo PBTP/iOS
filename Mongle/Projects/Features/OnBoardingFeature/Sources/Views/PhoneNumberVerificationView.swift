@@ -8,15 +8,15 @@
 
 import ComposableArchitecture
 import SwiftUI
-import Ui
+import UI
 
 public struct PhoneNumberVerificationView: View {
     // TEST CODE
     @State private var isButtonClicked = false
     
-    let store: Store<phoneNumberStore.State, phoneNumberStore.Action>
+    let store: Store<PhoneNumberStore.State, PhoneNumberStore.Action>
     
-    public init(store: Store<phoneNumberStore.State, phoneNumberStore.Action>) {
+    public init(store: Store<PhoneNumberStore.State, PhoneNumberStore.Action>) {
         self.store = store
     }
     
@@ -47,7 +47,7 @@ public struct PhoneNumberVerificationView: View {
             
             MongleNumberTextField(placeHolder: "010-0000-0000", timerActive: false, requestButtonActive: isButtonClicked)
         
-            ConfirmButton("인증번호 전송", isDisabeld: false) {
+            confirmButton("인증번호 전송", isDisabeld: false) {
                 withAnimation {
                     isButtonClicked.toggle()
                 }
@@ -72,6 +72,6 @@ public struct PhoneNumberVerificationView: View {
 
 #Preview {
     PhoneNumberVerificationView(
-        store: Store(initialState: phoneNumberStore.State(data: ["SKT", "KT", "LG U+", "SKT 알뜰폰", "KT 알뜰폰", "LG U+ 알뜰폰"])) {phoneNumberStore()}
+        store: Store(initialState: PhoneNumberStore.State(data: ["SKT", "KT", "LG U+", "SKT 알뜰폰", "KT 알뜰폰", "LG U+ 알뜰폰"])) {PhoneNumberStore()}
     )
 }

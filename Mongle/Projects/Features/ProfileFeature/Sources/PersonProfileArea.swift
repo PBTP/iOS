@@ -8,7 +8,7 @@
 
 import Core
 import SwiftUI
-import Ui
+import UI
 
 struct PersonProfileArea: View {
     @State private var dogImageUrl: String?

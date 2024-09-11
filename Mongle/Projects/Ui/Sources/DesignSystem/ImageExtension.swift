@@ -9,24 +9,24 @@
 import SwiftUI
 
 public extension Image {
-    static let appleLogin = UiAsset.Images.appleLogin.swiftUIImage
-    static let arrowLeftIcon = UiAsset.Images.arrowLeftIcon.swiftUIImage
-    static let bellIcon = UiAsset.Images.bellIcon.swiftUIImage
-    static let calendarIcon = UiAsset.Images.calendarIcon.swiftUIImage
-    static let checkBoxEmptyIcon = UiAsset.Images.checkboxEmptyIcon.swiftUIImage
-    static let checkBoxFillIcon = UiAsset.Images.checkboxFillIcon.swiftUIImage
-    static let chevronDownIcon = UiAsset.Images.chevronDownIcon.swiftUIImage
-    static let chevronRightIcon = UiAsset.Images.chevronRightIcon.swiftUIImage
-    static let gearIcon = UiAsset.Images.gearIcon.swiftUIImage
-    static let heartEmptyIcon = UiAsset.Images.heartEmptyIcon.swiftUIImage
-    static let kakakaoLogin = UiAsset.Images.kakaoLogin.swiftUIImage
-    static let markerPinIcon = UiAsset.Images.markerPinIcon.swiftUIImage
-    static let pencilIcon = UiAsset.Images.pencilIcon.swiftUIImage
-    static let plucIcon = UiAsset.Images.plucIcon.swiftUIImage
-    static let searchGrayIcon = UiAsset.Images.searchGrayIcon.swiftUIImage
-    static let searchIcon = UiAsset.Images.searchIcon.swiftUIImage
-    static let xCircleIcon = UiAsset.Images.xCircleIcon.swiftUIImage
-    static let xCloseIcon = UiAsset.Images.xCloseIcon.swiftUIImage
-    static let kakoLogo = UiAsset.Images.kakaoLogo.swiftUIImage
+    static let appleLogin = UIAsset.Images.appleLogin.swiftUIImage
+    static let arrowLeftIcon = UIAsset.Images.arrowLeftIcon.swiftUIImage
+    static let bellIcon = UIAsset.Images.bellIcon.swiftUIImage
+    static let calendarIcon = UIAsset.Images.calendarIcon.swiftUIImage
+    static let checkBoxEmptyIcon = UIAsset.Images.checkboxEmptyIcon.swiftUIImage
+    static let checkBoxFillIcon = UIAsset.Images.checkboxFillIcon.swiftUIImage
+    static let chevronDownIcon = UIAsset.Images.chevronDownIcon.swiftUIImage
+    static let chevronRightIcon = UIAsset.Images.chevronRightIcon.swiftUIImage
+    static let gearIcon = UIAsset.Images.gearIcon.swiftUIImage
+    static let heartEmptyIcon = UIAsset.Images.heartEmptyIcon.swiftUIImage
+    static let kakakaoLogin = UIAsset.Images.kakaoLogin.swiftUIImage
+    static let markerPinIcon = UIAsset.Images.markerPinIcon.swiftUIImage
+    static let pencilIcon = UIAsset.Images.pencilIcon.swiftUIImage
+    static let plucIcon = UIAsset.Images.plucIcon.swiftUIImage
+    static let searchGrayIcon = UIAsset.Images.searchGrayIcon.swiftUIImage
+    static let searchIcon = UIAsset.Images.searchIcon.swiftUIImage
+    static let xCircleIcon = UIAsset.Images.xCircleIcon.swiftUIImage
+    static let xCloseIcon = UIAsset.Images.xCloseIcon.swiftUIImage
+    static let kakoLogo = UIAsset.Images.kakaoLogo.swiftUIImage
 }
 

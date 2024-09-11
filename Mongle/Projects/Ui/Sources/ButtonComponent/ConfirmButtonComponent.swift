@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public func ConfirmButton(_ buttonText: String, isDisabeld: Bool = false, action: @escaping () -> Void) -> some View {
+public func confirmButton(_ buttonText: String, isDisabeld: Bool = false, action: @escaping () -> Void) -> some View {
     Button {
         print("\(buttonText) 버튼 클릭")
         action()
@@ -24,7 +24,7 @@ public func ConfirmButton(_ buttonText: String, isDisabeld: Bool = false, action
     .disabled(isDisabeld)
 }
 
-public func RequestButton(_ buttonText: String, action: @escaping () -> Void) -> some View {
+public func requestButton(_ buttonText: String, action: @escaping () -> Void) -> some View {
     Button {
         print("\(buttonText) 버튼 클릭")
         action()
@@ -121,9 +121,9 @@ public func strokeButton(_ buttonText: String, buttonColor: Color, textColor: Co
         Color.mongleGrayScale200
             .ignoresSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         VStack(spacing: 20) {
-            ConfirmButton("인증번호 전송", isDisabeld: false) {}
+            confirmButton("인증번호 전송", isDisabeld: false) {}
             
-            RequestButton("재요청") {}
+            requestButton("재요청") {}
             
             iconHorizontalButton("목욕 업체 둘러보기", buttonColor: Color.mongleGrayScale500, textColor: Color.mongleGrayScale0, textFont: .mgBody4, verticalPadding: 11, horizontalPadding: 12, radius: 8, iconImage: Image.searchIcon, spacing: 8, iconLeft: true) {
             }

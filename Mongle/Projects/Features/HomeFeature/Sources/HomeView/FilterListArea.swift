@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Ui
+import UI
 
 struct FilterListArea: View {
     var body: some View {

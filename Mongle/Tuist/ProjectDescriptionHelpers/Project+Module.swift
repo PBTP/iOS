@@ -9,11 +9,8 @@ import ProjectDescription
 
 public enum Module {
     case app
-    
     case core
-    
     case thirdPartyLibraryLib
-    
     case ui
 }
 
@@ -27,7 +24,7 @@ extension Module {
         case .core:
             return "Core"
         case .ui:
-            return "Ui"
+            return "UI"
         }
     }
     
@@ -44,19 +41,12 @@ extension Module: CaseIterable { }
 
 public enum Features {
     case rootFeature
-    
     case onBoardingFeature
-    
     case homeFeature
-    
     case calendarFeature
-    
     case chatFeature
-    
     case profileFeature
-    
     case baseFeature
-    
 }
 
 extension Features {
