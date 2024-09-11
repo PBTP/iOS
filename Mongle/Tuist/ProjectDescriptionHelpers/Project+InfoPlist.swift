@@ -33,6 +33,7 @@ public extension Project {
             ],
             "UISupportedInterfaceOrientations": [
                 "UlInterfaceOrientationPortrait"
+
             ],
             "UIUserInterfaceStyle": "Light"
         ]
@@ -40,4 +41,5 @@ public extension Project {
 
     static let releaseInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "release")
     static let devInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "dev")
+
 }
