@@ -27,6 +27,8 @@ public extension Project {
                 "CODE_SIGN_IDENTITY": "\(APIKey.codeSignIdentity)"
             ],
             configurations: [
+                .debug(name: "Dev", xcconfig: .relativeToRoot("Config/Dev.xcconfig")),
+                .release(name: "Release", xcconfig: .relativeToRoot("Config/Release.xcconfig"))
             ]
         )
         
@@ -92,9 +94,7 @@ public extension Project {
                 scripts: [.SwiftLintString],
                 dependencies: [
                     internalDependencies,
-                    externalDependencies,
-                    [
-                    ]
+                    externalDependencies
                 ].flatMap { $0 },
                 settings: settings
             )
@@ -143,9 +143,7 @@ public extension Project {
                 entitlements: entitlements,
                 scripts: [.SwiftLintString],
                 dependencies: [
-                    deps,
-                    [
-                    ]
+                    deps
                 ].flatMap { $0 },
                 settings: settings
             )
@@ -169,9 +167,7 @@ public extension Project {
                 resources: [.glob(pattern: "Tests/Resources/**", excluding: [])],
                 scripts: [.SwiftLintString],
                 dependencies: [
-                    deps,
-                    [
-                    ]
+                    deps
                 ].flatMap { $0 },
                 settings: settings
             )
@@ -195,9 +191,7 @@ public extension Project {
                 sources: ["UITests/Sources/**/*.swift"],
                 scripts: [.SwiftLintString],
                 dependencies: [
-                    deps,
-                    [
-                    ]
+                    deps
                 ].flatMap { $0 },
                 settings: settings
             )

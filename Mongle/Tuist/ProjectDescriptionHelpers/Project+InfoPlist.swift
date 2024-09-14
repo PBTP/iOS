@@ -35,7 +35,11 @@ public extension Project {
                 "UlInterfaceOrientationPortrait"
 
             ],
-            "UIUserInterfaceStyle": "Light"
+            "UIUserInterfaceStyle": "Light",
+            "Config": [
+                "BASE_URL": "$(BASE_URL)",
+                "WEB_BASE_URL": "$(WEB_BASE_URL)",
+            ]
         ]
     }
 

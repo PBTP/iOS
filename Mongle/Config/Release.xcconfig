@@ -1,0 +1,4 @@
+APP_ICON_NAME = APPIcon-dev
+
+BASE_URL = https://api.mgmg.life/
+WEB_BASE_URL =  https://web-view.mgmg.life/
