@@ -84,7 +84,7 @@ public extension Project {
         // MARK: - App
 
         if targets.contains(.app) {
-            let infoPlist = Project.releaseInfoPlist
+            let infoPlist = Project.devInfoPlist
             let target = Target.target(
                 name: name,
                 destinations: .iOS,
