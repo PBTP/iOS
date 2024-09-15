@@ -7,14 +7,10 @@
 
 import ProjectDescription
 
-public enum Environment {
-    public static let workspaceName = "Mongle"
-}
-
 public extension Project {
     enum Environment {
-        public static let workspaceName = "Mongle-iOS"
-        public static let deploymentTarget = DeploymentTargets.iOS("16.4")
+        public static let workspaceName = "Mongle"
+        public static let deploymentTarget = DeploymentTargets.iOS("16.0")
         public static let bundlePrefix = "com.mongle"
         public static let version = "0.0.1"
         public static let bundleVersion = "1"
