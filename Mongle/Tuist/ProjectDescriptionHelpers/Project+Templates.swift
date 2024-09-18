@@ -37,10 +37,12 @@ public extension Project {
             configurations: [
                 .debug(
                     name: .configuration("Debug"),
+                    settings: devSigningSettings,
                     xcconfig: .relativeToRoot("Config/Debug.xcconfig")
                 ),
                 .release(
                     name: .configuration("Release"),
+                    settings: releaseSigningSettings,
                     xcconfig: .relativeToRoot("Config/Release.xcconfig")
                 )
             ]
