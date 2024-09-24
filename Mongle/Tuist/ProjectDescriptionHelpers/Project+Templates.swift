@@ -17,17 +17,18 @@ public extension Project {
         let deploymentTarget = Environment.deploymentTarget
         var projectTargets: [Target] = []
         
-        // MARK: TARGETS > Singing & Capabilities
-        let devSigningSettings: [String: SettingValue] = [
-            "PRODUCT_BUNDLE_IDENTIFIER": "com.mongle.dev",
-            "PROVISIONING_PROFILE_SPECIFIER": "Mongle.dev",
-            "CODE_SIGN_IDENTITY": "\(APIKey.codeSignIdentity)"
-        ]
-        let releaseSigningSettings: [String: SettingValue] = [
-            "PRODUCT_BUNDLE_IDENTIFIER": "com.mongle.release",
-            "PROVISIONING_PROFILE_SPECIFIER": "Mongle.release",
-            "CODE_SIGN_IDENTITY": "\(APIKey.codeSignIdentity)"
-        ]
+        enum ConfigurationType: String {
+            case dev = "dev"
+            case release = "release"
+        }
+
+        func signingSettings(for config: ConfigurationType) -> [String: SettingValue] {
+            return [
+                "PRODUCT_BUNDLE_IDENTIFIER": "com.mongle.\(config.rawValue)",
+                "PROVISIONING_PROFILE_SPECIFIER": "Mongle.\(config.rawValue)",
+                "CODE_SIGN_IDENTITY": "\(APIKey.codeSignIdentity)"
+            ]
+        }
         let settings: Settings? = .settings(
             base: [
                 "CODE_SIGN_STYLE": "Manual",
@@ -37,12 +38,12 @@ public extension Project {
             configurations: [
                 .debug(
                     name: .configuration("Debug"),
-                    settings: devSigningSettings,
+                    settings: signingSettings(for: .dev),
                     xcconfig: .relativeToRoot("Config/Debug.xcconfig")
                 ),
                 .release(
                     name: .configuration("Release"),
-                    settings: releaseSigningSettings,
+                    settings: signingSettings(for: .release),
                     xcconfig: .relativeToRoot("Config/Release.xcconfig")
                 )
             ]
