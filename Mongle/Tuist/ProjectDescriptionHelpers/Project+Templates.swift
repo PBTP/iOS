@@ -14,25 +14,67 @@ public extension Project {
         entitlements: Entitlements? = nil,
         schemes: [Scheme] = []
     ) -> Project {
-        
-        //TODO: Relase, Dev 버전에 맞춰 bundleSuffix를 변경해야함.
-        let bundleSuffix = "dev"
         let deploymentTarget = Environment.deploymentTarget
         var projectTargets: [Target] = []
+        
+        enum ConfigurationType: String {
+            case dev = "dev"
+            case release = "release"
+        }
+
+        func signingSettings(for config: ConfigurationType) -> [String: SettingValue] {
+            return [
+                "PRODUCT_BUNDLE_IDENTIFIER": "com.mongle.\(config.rawValue)",
+                "PROVISIONING_PROFILE_SPECIFIER": "Mongle.\(config.rawValue)",
+                "CODE_SIGN_IDENTITY": "\(APIKey.codeSignIdentity)"
+            ]
+        }
         let settings: Settings? = .settings(
             base: [
-                "DEVELOPMENT_TEAM": "\(APIKey.developmentTeam)",
                 "CODE_SIGN_STYLE": "Manual",
-                "PROVISIONING_PROFILE_SPECIFIER": "Mongle.dev",
+                "DEVELOPMENT_TEAM": "\(APIKey.developmentTeam)",
                 "CODE_SIGN_IDENTITY": "\(APIKey.codeSignIdentity)"
             ],
             configurations: [
+                .debug(
+                    name: .configuration("Debug"),
+                    settings: signingSettings(for: .dev),
+                    xcconfig: .relativeToRoot("Config/Debug.xcconfig")
+                ),
+                .release(
+                    name: .configuration("Release"),
+                    settings: signingSettings(for: .release),
+                    xcconfig: .relativeToRoot("Config/Release.xcconfig")
+                )
             ]
         )
-        
+
+        // MARK: Scheme
         let schemes: [Scheme] = [
             Scheme.scheme(
-                name: "Mongle-prod",
+                name: "Mongle",
+                shared: true,
+                buildAction: BuildAction.buildAction(targets: ["Mongle"]),
+                runAction: .runAction(
+                    configuration: .release,
+                    preActions: [],
+                    postActions: [],
+                    arguments: Arguments.arguments(
+                        environmentVariables: [
+                            "KAKAO_APP_KEY": EnvironmentVariable(stringLiteral: APIKey.kakaoAppKey)
+                        ],
+                        launchArguments: []
+                    ),
+                    options: .options(),
+                    diagnosticsOptions: .options(),
+                    expandVariableFromTarget: nil
+                ),
+                archiveAction: .archiveAction(
+                    configuration: .release
+                )
+            ),
+            Scheme.scheme(
+                name: "Mongle-dev",
                 shared: true,
                 buildAction: BuildAction.buildAction(targets: ["Mongle"]),
                 runAction: .runAction(
@@ -48,25 +90,9 @@ public extension Project {
                     options: .options(),
                     diagnosticsOptions: .options(),
                     expandVariableFromTarget: nil
-                )
-            ),
-            Scheme.scheme(
-                name: "Mongle-dev",
-                shared: true,
-                buildAction: BuildAction.buildAction(targets: ["App"]),
-                runAction: .runAction(
-                    configuration: .debug,
-                    preActions: [],
-                    postActions: [],
-                    arguments: Arguments.arguments(
-                        environmentVariables: [
-                            "KAKAO_APP_KEY": EnvironmentVariable(stringLiteral: APIKey.kakaoAppKey)
-                        ],
-                        launchArguments: []
-                    ),
-                    options: .options(),
-                    diagnosticsOptions: .options(),
-                    expandVariableFromTarget: nil
+                ),
+                archiveAction: .archiveAction(
+                    configuration: .debug
                 )
             )
         ]
@@ -75,15 +101,15 @@ public extension Project {
         hasResources ? createDirectory(directoryname: "Resources", directoryPath: directoryPath) : ()
         
         // MARK: - App
-        
+
         if targets.contains(.app) {
             let infoPlist = Project.devInfoPlist
-
             let target = Target.target(
-                name: name,
+                name: "Mongle",
                 destinations: .iOS,
                 product: .app,
-                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)",
+                productName: "Mongle",
+                bundleId: "\(Environment.bundlePrefix)",
                 deploymentTargets: deploymentTarget,
                 infoPlist: .extendingDefault(with: infoPlist),
                 sources: ["Sources/**/*.swift"],
@@ -92,21 +118,84 @@ public extension Project {
                 scripts: [.SwiftLintString],
                 dependencies: [
                     internalDependencies,
-                    externalDependencies,
-                    [
-                    ]
+                    externalDependencies
                 ].flatMap { $0 },
                 settings: settings
             )
-            
+            projectTargets.append(target)
+        }
+
+        // MARK: - Demo
+
+        if targets.contains(.demo) {
+            createDirectoryAtCustomPath(folderName: "Demo", directoryPath: directoryPath)
+            let deps: [TargetDependency] = [.target(name: name)]
+            let target = Target.target(
+                name: "\(name)DemoApp",
+                destinations: .iOS,
+                product: .app,
+                bundleId: "\(Environment.bundlePrefix)",
+                deploymentTargets: deploymentTarget,
+                infoPlist: .extendingDefault(with: Project.devInfoPlist),
+                sources: ["Demo/Sources/**/*.swift"],
+                resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
+                entitlements: entitlements,
+                scripts: [.SwiftLintString],
+                dependencies: [
+                    deps
+                ].flatMap { $0 },
+                settings: settings
+            )
+            projectTargets.append(target)
+        }
+
+        // MARK: - UI Tests
+
+        if targets.contains(.uiTest) {
+            let deps: [TargetDependency] = targets.contains(.demo)
+            ? [.target(name: name), .target(name: "\(name)Demo")] : [.target(name: name)]
+            let target = Target.target(
+                name: "\(name)UITests",
+                destinations: .iOS,
+                product: .uiTests,
+                bundleId: "\(Environment.bundlePrefix).UITest",
+                deploymentTargets: deploymentTarget,
+                infoPlist: .default,
+                sources: ["UITests/Sources/**/*.swift"],
+                scripts: [.SwiftLintString],
+                dependencies: [
+                    deps
+                ].flatMap { $0 },
+                settings: settings
+            )
             projectTargets.append(target)
         }
         
+        // MARK: - Unit Tests
+        
+        if targets.contains(.unitTest) {
+            let deps: [TargetDependency] = [.target(name: name)]
+            let target = Target.target(
+                name: "\(name)UnitTests",
+                destinations: .iOS,
+                product: .unitTests,
+                bundleId: "\(Environment.bundlePrefix).UnitTest",
+                deploymentTargets: deploymentTarget,
+                infoPlist: .default,
+                sources: ["Tests/Sources/**/*.swift"],
+                resources: [.glob(pattern: "Tests/Resources/**", excluding: [])],
+                scripts: [.SwiftLintString],
+                dependencies: [
+                    deps
+                ].flatMap { $0 },
+                settings: settings
+            )
+            projectTargets.append(target)
+        }
 
         // MARK: - FrameWork
 
         if targets.contains(.frameWork) {
-            
             let target = Target.target(
                 name: name,
                 destinations: .iOS,
@@ -120,95 +209,14 @@ public extension Project {
                 dependencies: internalDependencies + externalDependencies,
                 settings: nil
             )
-            
-            projectTargets.append(target)
-        }
-        
-        // MARK: - Demo
 
-        if targets.contains(.demo) {
-            createDirectoryAtCustomPath(folderName: "Demo", directoryPath: directoryPath)
-            
-            let deps: [TargetDependency] = [.target(name: name)]
-            
-            let target = Target.target(
-                name: "\(name)Demo",
-                destinations: .iOS,
-                product: .app,
-                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)",
-                deploymentTargets: deploymentTarget,
-                infoPlist: .extendingDefault(with: Project.devInfoPlist),
-                sources: ["Demo/Sources/**/*.swift"],
-                resources: [.glob(pattern: "Demo/Resources/**", excluding: ["Demo/Resources/dummy.txt"])],
-                entitlements: entitlements,
-                scripts: [.SwiftLintString],
-                dependencies: [
-                    deps,
-                    [
-                    ]
-                ].flatMap { $0 },
-                settings: settings
-            )
-            
             projectTargets.append(target)
         }
-        
-        // MARK: - Unit Tests
-        
-        if targets.contains(.unitTest) {
-            let deps: [TargetDependency] = [.target(name: name)]
-            
-            let target = Target.target(
-                name: "\(name)Tests",
-                destinations: .iOS,
-                product: .unitTests,
-                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)Test",
-                deploymentTargets: deploymentTarget,
-                infoPlist: .default,
-                sources: ["Tests/Sources/**/*.swift"],
-                resources: [.glob(pattern: "Tests/Resources/**", excluding: [])],
-                scripts: [.SwiftLintString],
-                dependencies: [
-                    deps,
-                    [
-                    ]
-                ].flatMap { $0 },
-                settings: settings
-            )
-            
-            projectTargets.append(target)
-        }
-        
-        // MARK: - UI Tests
-        
-        if targets.contains(.uiTest) {
-            let deps: [TargetDependency] = targets.contains(.demo)
-            ? [.target(name: name), .target(name: "\(name)Demo")] : [.target(name: name)]
-            
-            let target = Target.target(
-                name: "\(name)UITests",
-                destinations: .iOS,
-                product: .uiTests,
-                bundleId: "\(Environment.bundlePrefix).\(bundleSuffix)UITest",
-                deploymentTargets: deploymentTarget,
-                infoPlist: .default,
-                sources: ["UITests/Sources/**/*.swift"],
-                scripts: [.SwiftLintString],
-                dependencies: [
-                    deps,
-                    [
-                    ]
-                ].flatMap { $0 },
-                settings: settings
-            )
-            
-            projectTargets.append(target)
-        }
-        
+
         
         return Project(
             name: name,
-            organizationName: Environment.workspaceName,
+            organizationName: Project.Environment.workspaceName,
             packages: packages,
             settings: nil,
             targets: projectTargets,

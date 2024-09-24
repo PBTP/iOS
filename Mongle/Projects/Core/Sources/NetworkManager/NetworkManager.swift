@@ -6,15 +6,18 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class NetworkManager {
     static let shared = NetworkManager()
-    
-    private init() {}
-    
+    private let config: ConfigImp
+
+    init(config: ConfigImp = ConfigImp()) {
+        self.config = config
+    }
+
     func sendUserData(customer: Customer, completion: @escaping (Result<Customer, Error>) -> Void) {
-        guard let url = URL(string: API.authLogin) else {
+        guard let url = URL(string: "\(config.baseURL)/v1/auth/login") else {
             print("Error creating URL")
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error creating URL"])))
             return
