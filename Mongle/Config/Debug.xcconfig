@@ -1,0 +1,5 @@
+APP_ICON_NAME = APPIcon-dev
+APP_BUNDLE_ID = com.mongle.dev
+
+BASE_URL = api.mgmg.life
+WEB_BASE_URL = web-view.mgmg.life

@@ -9,11 +9,11 @@ import Foundation
 import ProjectDescription
 
 public enum FeatureTarget {
-    case app 
-    case frameWork
+    case app
+    case demo
     case unitTest
     case uiTest
-    case demo
+    case frameWork
 }
 
 

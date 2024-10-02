@@ -9,9 +9,9 @@ import ProjectDescription
 
 public enum Module {
     case app
+    case ui
     case core
     case thirdPartyLibraryLib
-    case ui
 }
 
 extension Module {
@@ -19,12 +19,12 @@ extension Module {
         switch self {
         case .app:
             return "App"
-        case .thirdPartyLibraryLib:
-            return "ThirdPartyLibraryLib"
-        case .core:
-            return "Core"
         case .ui:
             return "UI"
+        case .core:
+            return "Core"
+        case .thirdPartyLibraryLib:
+            return "ThirdPartyLibraryLib"
         }
     }
     

@@ -33,13 +33,15 @@ public extension Project {
             ],
             "UISupportedInterfaceOrientations": [
                 "UlInterfaceOrientationPortrait"
-
             ],
-            "UIUserInterfaceStyle": "Light"
+            "UIUserInterfaceStyle": "Light",
+            "Config": [
+                "BASE_URL": "$(BASE_URL)",
+                "WEB_BASE_URL": "$(WEB_BASE_URL)",
+            ]
         ]
     }
 
     static let releaseInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "release")
     static let devInfoPlist = makeInfoPlist(bundleIdentifierSuffix: "dev")
-
 }
