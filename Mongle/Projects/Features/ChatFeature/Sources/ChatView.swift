@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Core
 
 public struct ChatView: View {
     public init() {}
@@ -18,4 +19,5 @@ public struct ChatView: View {
 
 #Preview {
     ChatView()
+        .environmentObject(KaKaoAuthCore())
 }
