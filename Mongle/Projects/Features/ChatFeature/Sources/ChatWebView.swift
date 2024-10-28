@@ -72,6 +72,7 @@ class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate 
                     print("No data received or it's void function")
                 }
             }
+            isUserDataRequest = false
         }
     }
     
