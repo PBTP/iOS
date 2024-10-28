@@ -34,8 +34,8 @@ struct ChatWebView: View {
 }
 
 class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
-    
-    var kakaoAuthCore: KaKaoAuthCore
+    private var isUserDataRequest = false
+    private var kakaoAuthCore: KaKaoAuthCore
 
     init(kakaoAuthCore: KaKaoAuthCore) {
         self.kakaoAuthCore = kakaoAuthCore
@@ -46,34 +46,41 @@ class ContentController: NSObject, WKScriptMessageHandler, WKNavigationDelegate 
             print("Message from JavaScript: \(messageBody)")
             showAlert(messageBody)
         }
-    }
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard let token = kakaoAuthCore.customer.accessToken, 
-                let uuid = kakaoAuthCore.customer.uuid else {
-            return
+        
+        if message.name == "webviewInit", let messageBody = message.body as? String {
+            print("Message from JavaScript: \(messageBody)")
+            isUserDataRequest = true
         }
-
-        webView.evaluateJavaScript("handleIosWebviewToken(\"\(token)\",\"\(uuid)\")") { result, error in
-            if let error = error {
-                print("Error \(error.localizedDescription)")
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if isUserDataRequest {
+            guard let token = kakaoAuthCore.customer.accessToken,
+                  let uuid = kakaoAuthCore.customer.uuid else {
                 return
             }
-
-            if let result = result {
-                print("Received Data \(result)")
-            } else {
-                print("No data received or it's void function")
+            
+            webView.evaluateJavaScript("handleIosWebviewToken(\"\(token)\",\"\(uuid)\")") { result, error in
+                if let error = error {
+                    print("Error \(error.localizedDescription)")
+                    return
+                }
+                
+                if let result = result {
+                    print("Received Data \(result)")
+                } else {
+                    print("No data received or it's void function")
+                }
             }
         }
     }
     
     private func showAlert(_ message: String) {
-        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else {
-            print("Failed to get root view controller.")
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let rootViewController = windowScene.windows.first?.rootViewController else {
             return
         }
-
+        
         let alertController = UIAlertController(title: "Message from WebView", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
 
@@ -94,7 +101,7 @@ struct ChatWebUIView: UIViewRepresentable {
     
     private static func createWebView(_ contentController: ContentController) -> WKWebView {
         let config = WKWebViewConfiguration()
-        config.userContentController.add(contentController, name: "handleIosWebviewToken")
+        config.userContentController.add(contentController, name: "webviewInit")
         config.userContentController.add(contentController, name: "showInfo")
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = contentController
