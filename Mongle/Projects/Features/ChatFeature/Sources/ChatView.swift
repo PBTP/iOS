@@ -6,8 +6,8 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
-import SwiftUI
 import Core
+import SwiftUI
 
 public struct ChatView: View {
     public init() {}
