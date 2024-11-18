@@ -14,21 +14,35 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
-    
+    @State var selectedTabItem = 0
+
     var body: some View {
         if kakaoAuth.customer.accessToken != nil {
-            TabView {
+            TabView(selection: $selectedTabItem) {
                 HomeView()
                     .tabItem {
-                        Image(systemName: "house.fill")
-                        Text("Home")
+                        Image(selectedTabItem == 0 ? "HomeTabItemSelected" : "HomeTabItem")
+                        Text("홈")
                     }
-                
+                    .tag(0)
+                Text("예약내역")
+                    .tabItem {
+                        Image(selectedTabItem == 1 ? "ReservationTabItemSelected" : "ReservationTabItem")
+                        Text("예약내역")
+                    }
+                    .tag(1)
                 ChatView()
                     .tabItem {
-                        Image(systemName: "message.fill")
+                        Image(selectedTabItem == 2 ? "ChatTabItemSelected" : "ChatTabItem")
                         Text("Chat")
                     }
+                    .tag(2)
+                Text("마이")
+                    .tabItem {
+                        Image(selectedTabItem == 3 ? "MyTabItemSelected" : "MyTabItem")
+                        Text("마이")
+                    }
+                    .tag(3)
             }
         } else {
             LoginView()
@@ -38,4 +52,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
+        .environmentObject(KaKaoAuthCore())
 }
