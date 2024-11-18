@@ -6,6 +6,7 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
+import Core
 import SwiftUI
 
 public struct ChatView: View {
@@ -18,4 +19,5 @@ public struct ChatView: View {
 
 #Preview {
     ChatView()
+        .environmentObject(KaKaoAuthCore())
 }
