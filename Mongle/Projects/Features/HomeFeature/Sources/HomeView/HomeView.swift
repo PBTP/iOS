@@ -11,45 +11,29 @@ import UI
 
 public struct HomeView: View {
     public init() {}
-    
+
     public var body: some View {
         VStack(spacing: 0) {
-            TabHeaderComponent(headerText: "홈", iconImageName: Image.bellIcon) {
-                
-            }
-            .overlay(alignment: .trailing) {
-                searchIconButton()
-            }
-            .padding(.horizontal, 20)
-            
-            
+            TabHeaderComponent(
+                headerText: "홈",
+                firstIconImageName: Image.searchGrayIcon,
+                firstAction: { },
+                secondIconName: Image.bellIcon,
+                secondAction: { }
+            )
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 18) {
                     Group {
                         AdBannerArea()
-                        
                         LocationDateArea()
-                        
                         FilterListArea()
-                        
                         CompanyList()
-                        
                     }
                     .padding(.horizontal, 20)
                     MongleInfoArea()
                 }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    fileprivate func searchIconButton() -> some View {
-        Button {
-            
-        } label: {
-            Image.searchGrayIcon
-        }
-        .padding(.trailing, 40)
+            } // ScrollView
+        } // VStack
     }
 }
 

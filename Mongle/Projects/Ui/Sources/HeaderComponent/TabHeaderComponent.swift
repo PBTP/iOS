@@ -10,34 +10,45 @@ import SwiftUI
 
 public struct TabHeaderComponent: View {
     let headerText: String
-    let iconImageName: Image?
-    let action: (() -> Void)?
-    
-    public init(headerText: String, iconImageName: Image? = nil, action: (() -> Void)? = nil)  {
+    let firstIconImageName: Image?
+    let firstAction: (() -> Void)?
+    let secondIconName: Image?
+    let secondAction: (() -> Void)?
+
+    public init(headerText: String, firstIconImageName: Image? = nil, firstAction: (() -> Void)? = nil, secondIconName: Image? = nil, secondAction: (() -> Void)? = nil) {
         self.headerText = headerText
-        self.iconImageName = iconImageName
-        self.action = action
+        self.firstIconImageName = firstIconImageName
+        self.firstAction = firstAction
+        self.secondIconName = secondIconName
+        self.secondAction = secondAction
     }
-    
+
     public var body: some View {
-        Text(headerText)
-            .font(.mgHeading1)
-            .foregroundStyle(.black)
-            .padding(.vertical, 15.5)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .overlay(alignment: .trailing) {
-                if let action = action {
-                    Button(action: action) {
-                        if let iconImageName = iconImageName {
-                            iconImageName
-                        }
-                    }
+        HStack(spacing: 19) {
+            Text(headerText)
+                .font(.mgHeading1)
+                .foregroundStyle(.black)
+            Spacer()
+            if let firstIconImageName = firstIconImageName {
+                Button(action: firstAction ?? {}) {
+                    firstIconImageName
                 }
             }
+            if let secondIconName = secondIconName {
+                Button(action: secondAction ?? {}) {
+                    secondIconName
+                }
+            }
+        } // HStack
+        .padding(.horizontal, 20)
+        .padding(.vertical, 18)
     }
 }
 
-
 #Preview {
-    TabHeaderComponent(headerText: "마이", iconImageName: Image.xCloseIcon) { }
+    TabHeaderComponent(
+        headerText: "마이",
+        firstIconImageName: Image.xCloseIcon,
+        firstAction: { }
+    )
 }

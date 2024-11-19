@@ -14,7 +14,7 @@ public struct ProfileView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            TabHeaderComponent(headerText: "마이", iconImageName: Image.gearIcon) { }
+            TabHeaderComponent(headerText: "마이", firstIconImageName: Image.gearIcon) { }
             
             VStack(spacing: 32) {
                 PersonProfileArea()
