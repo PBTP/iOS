@@ -25,7 +25,6 @@ public extension Font {
     static let mgBody4 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 13)
 
     // Caption
-    static let mgCaption1 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 11)
+    static let mgCaption1 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 12)
+    static let mgCaption2 = UIFontFamily.Pretendard.medium.swiftUIFont(size: 11)
 }
-
-

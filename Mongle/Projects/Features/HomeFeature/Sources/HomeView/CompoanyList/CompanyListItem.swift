@@ -12,10 +12,10 @@ import UI
 
 struct CompanyListItem: View {
     @State var dogImageUrl: String?
-    
+    @State var isLikedCompany: Bool
+
     var body: some View {
-        
-        HStack(alignment: .top, spacing: 15) {
+        HStack(alignment: .top, spacing: 12) {
             if let imageUrl = dogImageUrl {
                 AsyncImage(url: URL(string: imageUrl)) { image in
                     image.resizable()
@@ -23,39 +23,35 @@ struct CompanyListItem: View {
                     ProgressView()
                 }
                 .frame(width: 100, height: 100)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .clipShape(RoundedRectangle(cornerRadius: 4))
             } else {
                 ProgressView()
                     .frame(width: 100, height: 100)
             }
-            
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text("목욕 회사 이름")
-                    .font(.mgTitle1)
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 6) {
+                    Text("#청결한 트럭")
+                    Text("#좋은 제품 사용")
+                    Spacer()
+                    Button {
+                        isLikedCompany.toggle()
+                    } label: {
+                        isLikedCompany ? Image.likedTrueIcon : Image.likedFalseIcon
+                    }
+                } // HStack
+                .font(.mgCaption1)
+                .foregroundStyle(Color.mongleGrayScale600)
+                Text("몽글몽글 1호점")
+                    .font(.mgTitle3)
                     .foregroundStyle(Color.black)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .overlay(alignment: .trailing) {
-                        Button {
-                            
-                        } label: {
-                            Image.heartEmptyIcon
-                        }
-                    }
-                
-                mongleButton("리스트 종류", buttonColor: Color.mongleGrayScale100, textColor: Color.mongleGrayScale800, textFont: .mgCaption1, verticalPadding: 2, horizontalPadding: 8, radius: 30) {
-                    
-                }
-                .disabled(true)
-                
-                Text("180,000원부터")
-                    .font(.mgTitle1)
+                Text("₩180,000~")
+                    .font(.mgBody3)
                     .foregroundStyle(Color.black)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.top, 16)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
+            } // VStack
+        } // HStack
         .onAppear {
             fetchDogImage { imageUrl in
                 DispatchQueue.main.async {
@@ -67,8 +63,7 @@ struct CompanyListItem: View {
 }
 
 #Preview {
-    
-    CompanyListItem()
+    CompanyListItem(isLikedCompany: false)
         .border(Color.green)
     
 }

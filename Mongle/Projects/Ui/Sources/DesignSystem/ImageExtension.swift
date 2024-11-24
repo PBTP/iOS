@@ -18,6 +18,8 @@ public extension Image {
     static let chevronDownIcon = UIAsset.Images.chevronDownIcon.swiftUIImage
     static let chevronRightIcon = UIAsset.Images.chevronRightIcon.swiftUIImage
     static let gearIcon = UIAsset.Images.gearIcon.swiftUIImage
+    static let likedFalseIcon = UIAsset.Images.likedFalseIcon.swiftUIImage
+    static let likedTrueIcon = UIAsset.Images.likedTrueIcon.swiftUIImage
     static let heartEmptyIcon = UIAsset.Images.heartEmptyIcon.swiftUIImage
     static let kakakaoLogin = UIAsset.Images.kakaoLogin.swiftUIImage
     static let markerPinIcon = UIAsset.Images.markerPinIcon.swiftUIImage
