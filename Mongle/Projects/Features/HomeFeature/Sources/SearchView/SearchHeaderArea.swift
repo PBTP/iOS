@@ -10,17 +10,26 @@ import SwiftUI
 import UI
 
 struct SearchHeaderArea: View {
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
-        HStack(spacing: 16) {
-            Button {
-                
-            } label: {
-                Image.arrowLeftIcon
-            }
-            
-            MongleNumberTextField(placeHolder: "업체명을 입력하세요", leadingPadding: 20, verticalPadding: 15)
-                .padding(.vertical, 16)
+        HStack(spacing: 17) {
+            backButton
+            searchTextField
         }
+        .padding(.bottom, 16)
+    }
+
+    private var backButton: some View {
+        Button {
+            presentationMode.wrappedValue.dismiss()
+        } label: {
+            Image.arrowLeftIcon
+        }
+    }
+
+    private var searchTextField: some View {
+        MongleNumberTextField(placeHolder: "업체명을 입력하세요", leadingPadding: 17, verticalPadding: 15)
     }
 }
 

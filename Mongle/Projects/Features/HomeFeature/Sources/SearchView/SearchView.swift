@@ -17,13 +17,11 @@ public struct SearchView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             SearchHeaderArea()
-            
             RecentSearchCompanyList()
-            
             RecentSearchTextList()
-            
             Spacer()
-        }
+        } // VStack
+        .navigationBarBackButtonHidden(true)
         .padding(.horizontal, 20)
         .onAppear {
             fetchDogImage { imageUrl in
