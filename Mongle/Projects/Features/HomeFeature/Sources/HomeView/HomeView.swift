@@ -17,9 +17,9 @@ public struct HomeView: View {
             TabHeaderComponent(
                 headerText: "홈",
                 firstIconImageName: Image.searchGrayIcon,
-                firstAction: { },
+                firstDestination: SearchView(),
                 secondIconName: Image.bellIcon,
-                secondAction: { }
+                secondDestination: NotificationView()
             )
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 18) {

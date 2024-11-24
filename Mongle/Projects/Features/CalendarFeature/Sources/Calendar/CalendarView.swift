@@ -18,15 +18,12 @@ public struct CalendarView: View {
                 .ignoresSafeArea()
             VStack(spacing: 16) {
                 TabHeaderComponent(headerText: "예약")
-                
                 OnComingReservationArea()
-                
                 PreviousReservationArea()
-                
                 Spacer()
-            }
+            } // VStack
             .padding(.horizontal, 20)
-        }
+        } // ZStack
     }
 }
 

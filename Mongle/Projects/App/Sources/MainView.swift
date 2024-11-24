@@ -34,7 +34,7 @@ struct MainView: View {
                 ChatView()
                     .tabItem {
                         Image(selectedTabItem == 2 ? "ChatTabItemSelected" : "ChatTabItem")
-                        Text("Chat")
+                        Text("채팅")
                     }
                     .tag(2)
                 Text("마이")

@@ -11,20 +11,20 @@ import UI
 
 public struct ProfileView: View {
     public init() {}
-    
+
     public var body: some View {
         VStack(spacing: 0) {
-            TabHeaderComponent(headerText: "마이", firstIconImageName: Image.gearIcon) { }
-            
+            TabHeaderComponent(
+                headerText: "마이",
+                firstIconImageName: Image.gearIcon,
+                firstDestination: Text("마이 페이지")
+            )
             VStack(spacing: 32) {
                 PersonProfileArea()
-                
                 PetProfileArea()
-                
                 FavoriteStoreArea()
-            }
+            } // VStack
             Spacer()
-            
         }
         .padding(.horizontal, 20)
     }
