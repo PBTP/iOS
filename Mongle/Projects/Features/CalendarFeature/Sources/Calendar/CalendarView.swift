@@ -13,17 +13,20 @@ public struct CalendarView: View {
     public init() {}
     
     public var body: some View {
-        ZStack {
-            Color.mongleGrayScale100
-                .ignoresSafeArea()
-            VStack(spacing: 16) {
-                TabHeaderComponent(headerText: "예약")
+            VStack(spacing: 0) {
+                TabHeaderComponent(
+                    headerText: "예약",
+                    firstIconImageName: Image.searchGrayIcon,
+                    firstDestination: Text("찾기"),
+                    secondIconName: Image.bellIcon,
+                    secondDestination: Text("알림")
+                )
                 OnComingReservationArea()
                 PreviousReservationArea()
                 Spacer()
             } // VStack
             .padding(.horizontal, 20)
-        } // ZStack
+
     }
 }
 
