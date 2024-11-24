@@ -11,13 +11,21 @@ import UI
 
 public struct NotificationView: View {
     public init() { }
+    @Environment(\.presentationMode) var presentationMode
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HeaderComponent(headerText: "알림", iconImageName: Image.arrowLeftIcon) {}
+            HeaderComponent(
+                headerText: "알림",
+                iconImageName: Image.arrowLeftIcon
+            ) {
+                presentationMode.wrappedValue.dismiss()
+            }
+            .padding(.horizontal, 20)
             NotificationList()
             Spacer()
-        }
-        .padding(.horizontal, 20)
+        } // VStack
+        .navigationBarBackButtonHidden(true)
     }
 }
 

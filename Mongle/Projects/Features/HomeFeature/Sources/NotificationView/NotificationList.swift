@@ -9,51 +9,27 @@
 import SwiftUI
 import UI
 
+// MARK: DUMMY DATA
+let notificationsData: [String: [Notification]] = [
+    "2024-05-01": [
+        Notification(title: "알림 제목 1", content: "알림 내용 1", timeAgo: "1시간 전"),
+        Notification(title: "알림 제목 2", content: "알림 내용 2", timeAgo: "2시간 전")
+    ],
+    "2024-05-02": [
+        Notification(title: "알림 제목 3", content: "알림 내용 3", timeAgo: "3시간 전")
+    ]
+]
+
 struct NotificationList: View {
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("오늘")
-                    .font(.mgBody4)
-                    .foregroundStyle(Color.mongleGrayScale500)
-                
-                ForEach(0..<5) { _ in
-                    NotificationListItem()
+            VStack(alignment: .leading, spacing: 24) {
+                ForEach(notificationsData.keys.sorted(), id: \.self) { date in
+                    NotificationListItem(notificationDate: date, notifications: notificationsData[date] ?? [])
                 }
             }
+            .padding(.horizontal, 16)
         }
-    }
-}
-
-struct NotificationListItem: View {
-    var body: some View {
-
-        HStack(alignment: .top, spacing: 15) {
-            RoundedRectangle(cornerRadius: 8)
-                .frame(width: 60, height: 60)
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text("목욕 회사 이름")
-                    .font(.mgTitle1)
-                    .foregroundStyle(Color.black)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .overlay(alignment: .trailing) {
-                        Text("1시간 전")
-                            .font(.mgCaption1)
-                            .foregroundStyle(Color.mongleGrayScale500)
-                    }
-                
-                Text("내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용")
-                    .font(.mgBody4)
-                    .foregroundStyle(Color.mongleGrayScale500)
-                    .tracking(0)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 18)
-        .background(Color.mongleGrayScale100)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 
