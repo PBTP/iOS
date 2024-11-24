@@ -14,7 +14,7 @@ public struct NotificationView: View {
     @Environment(\.presentationMode) var presentationMode
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             HeaderComponent(
                 headerText: "알림",
                 iconImageName: Image.arrowLeftIcon
@@ -23,6 +23,7 @@ public struct NotificationView: View {
             }
             .padding(.horizontal, 20)
             NotificationList()
+                .padding(.vertical, 8)
             Spacer()
         } // VStack
         .navigationBarBackButtonHidden(true)
