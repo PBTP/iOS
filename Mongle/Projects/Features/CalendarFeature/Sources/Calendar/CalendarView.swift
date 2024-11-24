@@ -10,23 +10,24 @@ import SwiftUI
 import UI
 
 public struct CalendarView: View {
-    public init() {}
-    
+    public init() { }
+
     public var body: some View {
-            VStack(spacing: 0) {
-                TabHeaderComponent(
-                    headerText: "예약",
-                    firstIconImageName: Image.searchGrayIcon,
-                    firstDestination: Text("찾기"),
-                    secondIconName: Image.bellIcon,
-                    secondDestination: Text("알림")
-                )
+        VStack(spacing: 0) {
+            TabHeaderComponent(
+                headerText: "예약",
+                firstIconImageName: Image.searchGrayIcon,
+                firstDestination: Text("찾기"),
+                secondIconName: Image.bellIcon,
+                secondDestination: Text("알림")
+            )
+            Group {
                 OnComingReservationArea()
                 PreviousReservationArea()
-                Spacer()
-            } // VStack
-            .padding(.horizontal, 20)
-
+            }
+            .padding(.horizontal, 16)
+            Spacer()
+        } // VStack
     }
 }
 
