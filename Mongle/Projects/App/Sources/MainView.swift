@@ -6,43 +6,48 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
-import Core
+import CalendarFeature
 import ChatFeature
-import OnBoardingFeature
+import Core
 import HomeFeature
+import OnBoardingFeature
+import ProfileFeature
 import SwiftUI
 
 struct MainView: View {
+    @StateObject var navigationVM = NavigationViewModel(path: [])
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
     @State var selectedTabItem = 0
 
     var body: some View {
         if kakaoAuth.customer.accessToken != nil {
-            TabView(selection: $selectedTabItem) {
-                HomeView()
-                    .tabItem {
-                        Image(selectedTabItem == 0 ? "HomeTabItemSelected" : "HomeTabItem")
-                        Text("홈")
+            NavigationStack(path: $navigationVM.path) {
+                TabView(selection: $selectedTabItem) {
+                    ForEach(TabItem.allCases, id: \.self) { tab in
+                        tab.view
+                            .tabItem {
+                                Image(selectedTabItem == tab.rawValue ? tab.selectedImage : tab.defaultImage)
+                                Text(tab.title)
+                            }
+                            .tag(tab.rawValue)
                     }
-                    .tag(0)
-                Text("예약내역")
-                    .tabItem {
-                        Image(selectedTabItem == 1 ? "ReservationTabItemSelected" : "ReservationTabItem")
-                        Text("예약내역")
+                } // TabView
+                .navigationDestination(for: Screen.self) { route in
+                    switch route {
+                    case .home:
+                        HomeView()
+                    case .searchCompany:
+                        SearchView()
+                    case .storeDetail:
+                        Text("test")
+                    case .notification:
+                        NotificationView()
                     }
-                    .tag(1)
-                ChatView()
-                    .tabItem {
-                        Image(selectedTabItem == 2 ? "ChatTabItemSelected" : "ChatTabItem")
-                        Text("채팅")
-                    }
-                    .tag(2)
-                Text("마이")
-                    .tabItem {
-                        Image(selectedTabItem == 3 ? "MyTabItemSelected" : "MyTabItem")
-                        Text("마이")
-                    }
-                    .tag(3)
+                } // navigationDestination
+                .environmentObject(navigationVM)
+                .onOpenURL { url in
+                    navigationVM.handleDeeplink(url: url)
+                } // openURL
             }
         } else {
             LoginView()

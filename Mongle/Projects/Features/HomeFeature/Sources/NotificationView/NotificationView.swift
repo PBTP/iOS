@@ -9,14 +9,12 @@
 import SwiftUI
 import UI
 
-struct NotificationView: View {
-    
-    var body: some View {
+public struct NotificationView: View {
+    public init() { }
+    public var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HeaderComponent(headerText: "알림", iconImageName: Image.arrowLeftIcon) {}
-            
             NotificationList()
-            
             Spacer()
         }
         .padding(.horizontal, 20)
