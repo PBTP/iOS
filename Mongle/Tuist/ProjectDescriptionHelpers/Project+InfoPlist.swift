@@ -18,12 +18,17 @@ public extension Project {
             "DEFINES_MODULE": "NO",
             "LSApplicationQueriesSchemes" : [
                 "kakaokompassauth",
-                "kakaolink"
+                "kakaolink",
+                "mongle"
             ],
             "CFBundleURLTypes": [
                 [
                     "CFBundleTypeRole": "Editor",
                     "CFBundleURLSchemes": ["kakao\(APIKey.kakaoAppKey)"]
+                ],
+                [
+                    "CFBundleTypeRole": "Editor",
+                    "CFBundleURLSchemes": ["mongle"]
                 ]
             ],
             "UILaunchStoryboardName": "LaunchScreen",
