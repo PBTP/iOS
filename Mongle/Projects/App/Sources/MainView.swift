@@ -15,7 +15,8 @@ import ProfileFeature
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var navigationVM = NavigationViewModel(path: [])
+    @StateObject var navigationVM = NavigationViewModel()
+
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
     @State var selectedTabItem = 0
 

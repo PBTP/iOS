@@ -11,7 +11,7 @@ import SwiftUI
 public class NavigationViewModel: ObservableObject {
     @Published public var path: [Screen] = []
 
-    public init(path: [Screen]) {
+    public init(path: [Screen] = []) {
         self.path = path
     }
 
