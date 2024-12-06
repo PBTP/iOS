@@ -18,35 +18,15 @@ public struct TabHeaderComponent<FirstDestination: View, SecondDestination: View
     public init(
         headerText: String,
         firstIconImageName: Image? = nil,
-        firstDestination: FirstDestination,
+        firstDestination: FirstDestination = EmptyView(),
         secondIconName: Image? = nil,
-        secondDestination: SecondDestination
+        secondDestination: SecondDestination = EmptyView()
     ) {
         self.headerText = headerText
         self.firstIconImageName = firstIconImageName
         self.firstDestination = firstDestination
         self.secondIconName = secondIconName
         self.secondDestination = secondDestination
-    }
-
-    public init(
-        headerText: String,
-        firstIconImageName: Image? = nil,
-        firstDestination: FirstDestination
-    ) where SecondDestination == EmptyView {
-        self.headerText = headerText
-        self.firstIconImageName = firstIconImageName
-        self.firstDestination = firstDestination
-        self.secondIconName = nil
-        self.secondDestination = EmptyView()
-    }
-
-    public init(headerText: String) where FirstDestination == EmptyView, SecondDestination == EmptyView {
-        self.headerText = headerText
-        self.firstIconImageName = nil
-        self.firstDestination = EmptyView()
-        self.secondIconName = nil
-        self.secondDestination = EmptyView()
     }
 
     public var body: some View {
