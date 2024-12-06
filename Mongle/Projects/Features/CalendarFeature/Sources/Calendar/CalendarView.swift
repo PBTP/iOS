@@ -32,5 +32,7 @@ public struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView()
+    NavigationStack {
+        CalendarView()
+    }
 }

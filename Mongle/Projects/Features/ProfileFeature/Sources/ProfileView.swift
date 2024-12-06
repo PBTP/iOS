@@ -31,5 +31,7 @@ public struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView()
+    NavigationStack {
+        ProfileView()
+    }
 }
