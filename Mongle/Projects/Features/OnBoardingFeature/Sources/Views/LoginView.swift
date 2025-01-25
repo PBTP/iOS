@@ -33,10 +33,10 @@ public struct LoginView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width:229, height: 202)
-                Text(LoginText.welcomeText)
+                Text("반가워요!")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(Color.mongleColorPrimary300)
-                Text(LoginText.infoText)
+                Text("행복한 대형견 목욕의 시작, 몽글입니다")
                     .font(.system(size: 16))
                     .foregroundStyle(Color.mongleGrayScale900)
                 Spacer()
@@ -55,13 +55,13 @@ public struct LoginView: View {
                     // TODO: Apple Login
                 }
                 HStack(spacing: 8) {
-                    gray400WithLineButton(LoginText.browseText) {
+                    gray400WithLineButton("둘러보기") {
                         hasAccessToken = true
                     }
                     Divider()
                         .frame(width: 1.5, height: 16)
                         .foregroundStyle(Color.mongleGrayScale400)
-                    gray400WithLineButton(LoginText.contactText) {
+                    gray400WithLineButton("문의하기") {
                         // TODO: 문의하기
                     }
                 }
