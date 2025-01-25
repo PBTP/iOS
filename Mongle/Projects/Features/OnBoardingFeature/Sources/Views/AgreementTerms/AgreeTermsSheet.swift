@@ -13,12 +13,19 @@ struct AgreeTermsSheet: View {
     @Environment(\.dismiss) var dismiss
     @State private var selectedIndices: Set<Int> = []
     @State private var showAlert: Bool = false
+    @Binding var isRequiredTermsAgreed: Bool
+
     private let data: [(text: String, description: String, isRequired: Bool)] = [
         ("만 14세 이상 이용, 서비스 이용약관, 개인정보 수집 및 이용 동의 (필수)", "해당 약관에 동의하시면 서비스 이용이 가능합니다.", true),
         ("개인정보 수집 및 이용 동의 (선택)", "해당 약관은 선택사항으로 동의하지 않아도 서비스 이용이 가능합니다.", false),
         ("특가, 쿠폰 등 마케팅 정보 수신 동의 (선택)", "마케팅 정보 수신에 동의하시면 관련 혜택을 제공받을 수 있습니다.", false),
         ("위치 정보 이용 약관 동의 (선택)", "위치 정보 이용에 동의하시면 맞춤형 서비스를 받을 수 있습니다.", false)
     ]
+
+    private var isAllRequiredTermsAgreed: Bool {
+        let requiredIndices = data.indices.filter { data[$0].isRequired }
+        return Set(requiredIndices).isSubset(of: selectedIndices)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -70,7 +77,7 @@ struct AgreeTermsSheet: View {
             }
             confirmButton("동의하고 계속하기", isDisabeld: !isAllRequiredTermsAgreed) {
                 dismiss()
-                // TODO: PhoneNumberVerificationView로 이동
+                isRequiredTermsAgreed = true
             }.onTapGesture {
                 if !isAllRequiredTermsAgreed {
                     showAlert = true
@@ -85,11 +92,6 @@ struct AgreeTermsSheet: View {
                 secondaryButton: .cancel(Text("취소"))
             )
         }
-    }
-
-    private var isAllRequiredTermsAgreed: Bool {
-        let requiredIndices = data.indices.filter { data[$0].isRequired }
-        return Set(requiredIndices).isSubset(of: selectedIndices)
     }
 
     private func toggleAll() {
@@ -113,10 +115,11 @@ struct AgreeTermsSheet: View {
     }
 }
 
+
 #Preview {
     Text("약관 동의")
         .sheet(isPresented: .constant(true)) {
-            AgreeTermsSheet()
+            AgreeTermsSheet(isRequiredTermsAgreed: .constant(false))
                 .presentationDetents([.medium])
         }
 }

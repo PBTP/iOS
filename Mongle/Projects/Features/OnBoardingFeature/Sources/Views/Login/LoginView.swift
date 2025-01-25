@@ -21,11 +21,12 @@ public struct LoginView: View {
 
     @State private var hasAccessToken = false
     @State private var isShowTermsAgreeSheet = false
+    @State var isRequiredTermsAgreed = false
 
     public init() {
         KakaoSDK.initSDK(appKey: APPKey.kakaoAppKey)
     }
-    
+
     public var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
@@ -81,27 +82,15 @@ public struct LoginView: View {
                     hasAccessToken = true
                 }
             }
+            .sheet(isPresented: $isShowTermsAgreeSheet) {
+            }
+            .navigationDestination(isPresented: $isRequiredTermsAgreed) {
+                PhoneNumberVerificationView()
+            }
             .navigationDestination(isPresented: $hasAccessToken) {
+                // TODO: 둘러보기
                 HomeView()
                     .navigationBarBackButtonHidden()
-                    .overlay(alignment: .bottom) {
-                        NavigationLink {
-                            WebView()
-                        } label: {
-                            Text("WebView 연결")
-                                .font(.mgTitle2)
-                                .foregroundStyle(Color.mongleGrayScale0)
-                                .padding(.vertical, 17)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.mongleColorPrimary300)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                        }
-                        
-                    }
-            }
-            .sheet(isPresented: $isShowTermsAgreeSheet) {
-                AgreeTermsSheet()
-                    .presentationDetents([.medium])
             }
         }
     }
