@@ -20,7 +20,8 @@ public struct LoginView: View {
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
 
     @State private var hasAccessToken = false
-    
+    @State private var isShowTermsAgreeSheet = false
+
     public init() {
         KakaoSDK.initSDK(appKey: APPKey.kakaoAppKey)
     }
@@ -45,6 +46,7 @@ public struct LoginView: View {
                         if success {
                             print("카카오 로그인 성공")
                             hasAccessToken = true
+                            isShowTermsAgreeSheet = true
                         } else {
                             print("카카오 로그인 실패")
                             hasAccessToken = false
@@ -96,6 +98,10 @@ public struct LoginView: View {
                         }
                         
                     }
+            }
+            .sheet(isPresented: $isShowTermsAgreeSheet) {
+                AgreeTermsSheet()
+                    .presentationDetents([.medium])
             }
         }
     }
