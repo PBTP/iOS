@@ -17,7 +17,7 @@ class NetworkManager {
         self.config = config
     }
 
-    func sendUserData(customer: Customer, completion: @escaping (Result<Customer, Error>) -> Void) {
+    func sendUserData(customer: Customer, completion: @escaping (Result<CustomerData, Error>) -> Void) {
         guard let url = URL(string: "\(config.baseURL)/v1/auth/login") else {
             print("Error creating URL")
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error creating URL"])))
@@ -31,8 +31,8 @@ class NetworkManager {
         let userData: [String: String?] = [
             "uuid": customer.uuid,
             "userType": customer.userType,
-            "customerName": customer.customerName ?? nil,
-            "authProvider": customer.authProvider ?? nil,
+            "customerName": customer.customerName,
+            "authProvider": customer.authProvider
         ]
         
         do {
@@ -53,15 +53,15 @@ class NetworkManager {
                         if let data = data, let responseString = String(data: data, encoding: .utf8) {
                             print("Response Data: \(responseString)")
                             
-                            if let updatedCustomer = JsonDecoder.shared.decodeCustomer(from: responseString) {
-                                print("Customer UUID: \(updatedCustomer.uuid ?? "nil")")
-                                print("Customer Name: \(updatedCustomer.customerName ?? "nil")")
-                                print("Auth Provider: \(updatedCustomer.authProvider ?? "nil")")
-                                print("Access Token: \(updatedCustomer.accessToken ?? "nil")")
-                                print("Refresh Token: \(updatedCustomer.refreshToken ?? "nil")")
-                                
+                            if let updatedCustomer = JsonDecoder.shared.decodeCustomerResponse(from: responseString) {
+                                print("Customer UUID: \(updatedCustomer.data.userId)")
+                                print("Customer Name: \(updatedCustomer.data.userType)")
+                                print("Auth Provider: \(updatedCustomer.data.authProvider)")
+                                print("Access Token: \(updatedCustomer.data.accessToken)")
+                                print("Refresh Token: \(updatedCustomer.data.refreshToken)")
+
                                 DispatchQueue.main.async {
-                                    completion(.success(updatedCustomer))
+                                    completion(.success(updatedCustomer.data))
                                 }
                             } else {
                                 print("Failed to decode customer")

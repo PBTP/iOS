@@ -12,16 +12,18 @@ class JsonDecoder {
     static let shared = JsonDecoder()
     
     private init() {}
-    
-    func decodeCustomer(from jsonString: String) -> Customer? {
-        let jsonData = jsonString.data(using: .utf8)!
-        
-        do {
-            let customer = try JSONDecoder().decode(Customer.self, from: jsonData)
-            return customer
-        } catch {
-            print("Error decoding JSON: \(error)")
-            return nil
+
+    func decodeCustomerResponse(from responseString: String) -> CustomerResponse? {
+        let decoder = JSONDecoder()
+        if let data = responseString.data(using: .utf8) {
+            do {
+                let customerResponse = try decoder.decode(CustomerResponse.self, from: data)
+                return customerResponse
+            } catch {
+                print("Error decoding JSON: \(error)")
+                return nil
+            }
         }
+        return nil
     }
 }
