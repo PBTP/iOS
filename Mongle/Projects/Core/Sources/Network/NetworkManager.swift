@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+// TODO: 제거 필요
 class NetworkManager {
     static let shared = NetworkManager()
     private let config: ConfigImp
