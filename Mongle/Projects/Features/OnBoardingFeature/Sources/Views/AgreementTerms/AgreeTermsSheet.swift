@@ -12,6 +12,7 @@ import UI
 struct AgreeTermsSheet: View {
     @Environment(\.dismiss) var dismiss
     @State private var selectedIndices: Set<Int> = []
+    @State private var showAlert: Bool = false
     private let data: [(text: String, description: String, isRequired: Bool)] = [
         ("만 14세 이상 이용, 서비스 이용약관, 개인정보 수집 및 이용 동의 (필수)", "해당 약관에 동의하시면 서비스 이용이 가능합니다.", true),
         ("개인정보 수집 및 이용 동의 (선택)", "해당 약관은 선택사항으로 동의하지 않아도 서비스 이용이 가능합니다.", false),
@@ -31,7 +32,6 @@ struct AgreeTermsSheet: View {
                     }
                 }
                 .padding(.top, 30)
-            Spacer()
             Button(action: toggleAll) {
                 HStack(spacing: 8) {
                     if selectedIndices.count == data.count {
@@ -69,10 +69,22 @@ struct AgreeTermsSheet: View {
                 )
             }
             confirmButton("동의하고 계속하기", isDisabeld: !isAllRequiredTermsAgreed) {
-                // TODO: 시트 제거 후 PhoneNumberVerificationView로 이동
+                dismiss()
+                // TODO: PhoneNumberVerificationView로 이동
+            }.onTapGesture {
+                if !isAllRequiredTermsAgreed {
+                    showAlert = true
+                }
             }
         }
         .padding(.horizontal, 20)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("필수 약관에 동의해주세요."),
+                primaryButton: .default(Text("확인")),
+                secondaryButton: .cancel(Text("취소"))
+            )
+        }
     }
 
     private var isAllRequiredTermsAgreed: Bool {
