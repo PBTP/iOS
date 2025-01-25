@@ -6,8 +6,10 @@
 //  Copyright © 2024 Mongle-iOS. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+import KakaoSDKAuth
 import KakaoSDKUser
+import Combine
 
 public class KaKaoAuthCore: ObservableObject {
     @Published public var customer: Customer
@@ -73,7 +75,8 @@ public class KaKaoAuthCore: ObservableObject {
                 self.customer.authProvider = "KAKAO"
                 
                 print(self.customer)
-                
+                completion(true)
+
                 NetworkManager.shared.sendUserData(customer: customer) { result in
                     switch result {
                     case .success(let updatedCustomer):

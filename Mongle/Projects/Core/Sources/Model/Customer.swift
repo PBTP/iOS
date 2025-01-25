@@ -30,3 +30,17 @@ public struct Customer: Codable {
         self.refreshToken = refreshToken
     }
 }
+
+struct CustomerResponse: Decodable {
+    let statusCode: Int
+    let message: String
+    let data: CustomerData
+}
+
+struct CustomerData: Decodable {
+    let userId: Int
+    let userType: String
+    let authProvider: String
+    let accessToken: String
+    let refreshToken: String
+}

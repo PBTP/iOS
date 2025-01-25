@@ -10,15 +10,15 @@ import AuthenticationServices
 import ComposableArchitecture
 import Core
 import HomeFeature
+import KakaoSDKAuth
+import KakaoSDKCommon
+import KakaoSDKUser
 import SwiftUI
 import UI
-import KakaoSDKCommon
-import KakaoSDKAuth
-import KakaoSDKUser
 
 public struct LoginView: View {
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
-    
+
     @State private var hasAccessToken = false
     
     public init() {
@@ -28,10 +28,18 @@ public struct LoginView: View {
     public var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
-                HeaderComponent(headerText: "로그인", iconImageName: Image.xCloseIcon) {}
-                
                 Spacer()
-                
+                Image.petLogo
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width:229, height: 202)
+                Text("반가워요!")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(Color.mongleColorPrimary300)
+                Text("행복한 대형견 목욕의 시작, 몽글입니다")
+                    .font(.system(size: 16))
+                    .foregroundStyle(Color.mongleGrayScale900)
+                Spacer()
                 kakaoLoginButton {
                     kakaoAuth.loginKakaoAccount() { success in
                         if success {
@@ -43,16 +51,24 @@ public struct LoginView: View {
                         }
                     }
                 }
-                
-                AppleSigninButton()
-                
-                skipLoginButton {
-                    hasAccessToken = true
+                appleLoginButton {
+                    // TODO: Apple Login
                 }
-                    .padding(.top, 24)
-                    .padding(.bottom, 50)
+                HStack(spacing: 8) {
+                    gray400WithLineButton("둘러보기") {
+                        hasAccessToken = true
+                    }
+                    Divider()
+                        .frame(width: 1.5, height: 16)
+                        .foregroundStyle(Color.mongleGrayScale400)
+                    gray400WithLineButton("문의하기") {
+                        // TODO: 문의하기
+                    }
+                }
+                .padding(.top, 24)
             }
             .padding(.horizontal, 20)
+            .padding(.bottom, 60)
             .onOpenURL(perform: { url in
                 if (AuthApi.isKakaoTalkLoginUrl(url)) {
                     _ = AuthController.handleOpenUrl(url: url)
@@ -81,42 +97,6 @@ public struct LoginView: View {
                         
                     }
             }
-        }
-    }
-}
-
-struct AppleSigninButton : View {
-    let store = Store(initialState: AppleAuthCore.State()) {
-        AppleAuthCore().body._printChanges()
-    }
-    
-    var body: some View{
-        VStack {
-            SignInWithAppleButton(
-                .continue,
-                onRequest: { request in
-                    request.requestedScopes = [.fullName, .email]
-                },
-                onCompletion: { result in
-                    switch result {
-                    case .success(let authResults):
-                        print("Apple Login Successful")
-                        switch authResults.credential{
-                        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                            store.send(.appleButtonTapped(appleIDCredential))
-                            
-                        default:
-                            break
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        print("error")
-                    }
-                }
-            )
-            .frame(maxWidth: .infinity)
-            .frame(height:46)
-            .cornerRadius(8)
         }
     }
 }
