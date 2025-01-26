@@ -71,17 +71,19 @@ public class KaKaoAuthCore: ObservableObject {
                 if let customerName = user?.kakaoAccount?.profile?.nickname {
                     self.customer.customerName = customerName
                 }
-                
-                self.customer.authProvider = "KAKAO"
-                
+
+                // TODO: userdefault에 저장
+                 self.customer.authProvider = "KAKAO"
+
                 print(self.customer)
                 completion(true)
 
                 NetworkManager.shared.sendUserData(customer: customer) { result in
                     switch result {
                     case .success(let updatedCustomer):
-                        self.customer.accessToken = updatedCustomer.accessToken
-                        self.customer.refreshToken = updatedCustomer.refreshToken
+                        // TODO: access token, refresh token -> keychain에 저장
+                        // self.customer.accessToken = updatedCustomer.accessToken
+                        //self.customer.refreshToken = updatedCustomer.refreshToken
                         completion(true)
                         print("User data sent and processed successfully")
                     case .failure(let error):

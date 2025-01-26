@@ -46,7 +46,7 @@ public struct LoginView: View {
                     kakaoAuth.loginKakaoAccount() { success in
                         if success {
                             print("카카오 로그인 성공")
-                            hasAccessToken = true
+                            //hasAccessToken = true
                             isShowTermsAgreeSheet = true
                         } else {
                             print("카카오 로그인 실패")
@@ -59,7 +59,7 @@ public struct LoginView: View {
                 }
                 HStack(spacing: 8) {
                     gray400WithLineButton("둘러보기") {
-                        hasAccessToken = true
+                        //  TODO: 둘러보기
                     }
                     Divider()
                         .frame(width: 1.5, height: 16)
@@ -83,14 +83,11 @@ public struct LoginView: View {
                 }
             }
             .sheet(isPresented: $isShowTermsAgreeSheet) {
+                AgreeTermsSheet(isRequiredTermsAgreed: $isRequiredTermsAgreed)
+                    .presentationDetents([.medium])
             }
             .navigationDestination(isPresented: $isRequiredTermsAgreed) {
                 PhoneNumberVerificationView()
-            }
-            .navigationDestination(isPresented: $hasAccessToken) {
-                // TODO: 둘러보기
-                HomeView()
-                    .navigationBarBackButtonHidden()
             }
         }
     }
