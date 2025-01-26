@@ -16,16 +16,14 @@ public struct CustomerRequest: Request {
     public let query: [String: Any]
     public let header: HTTPHeader
 
-    public init(_ baseURL: String, authPrivider: String, userType: String, userId: Int, phoneNumber: String, uuid: String, name: String) {
+    public init(_ baseURL: String, uuid: String, userType: String, customerName: String, authProvider: String) {
         self.endpoint = URL(string: "\(baseURL)/v1/auth/login")!
         self.method = .post
         self.query = [
-            "authProvider": authPrivider,
-            "userType": userType,
-            "userId": userId,
-            "phoneNumber": phoneNumber,
             "uuid": uuid,
-            "name": name
+            "userType": userType,
+            "customerName": customerName,
+            "authProvider": authProvider
         ]
         self.header = [:]
     }
