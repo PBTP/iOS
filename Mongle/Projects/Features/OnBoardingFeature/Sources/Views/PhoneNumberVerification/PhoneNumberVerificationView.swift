@@ -10,11 +10,17 @@ import SwiftUI
 import UI
 
 public struct PhoneNumberVerificationView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var isRequestVerifyNumber = false
 
     public var body: some View {
         VStack(spacing: 8) {
-            HeaderComponent(headerText: "휴대폰 번호 인증", iconImageName: Image.arrowLeftIcon) {}
+            HeaderComponent(
+                headerText: "휴대폰 번호 인증",
+                iconImageName: Image.arrowLeftIcon
+            ) {
+                presentationMode.wrappedValue.dismiss()
+            }
             if isRequestVerifyNumber {
                 Text("인증번호")
                     .font(.mgBody3)
