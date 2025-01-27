@@ -15,13 +15,12 @@ import ProfileFeature
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var navigationVM = NavigationViewModel()
-
     @EnvironmentObject var kakaoAuth: KaKaoAuthCore
+    @StateObject var navigationVM = NavigationViewModel()
     @State var selectedTabItem = 0
 
     var body: some View {
-        if kakaoAuth.customer.accessToken != nil {
+        if !UserSettings.accessToken.isEmpty && UserSettings.isLoggedIn {
             NavigationStack(path: $navigationVM.path) {
                 TabView(selection: $selectedTabItem) {
                     ForEach(TabItem.allCases, id: \.self) { tab in
@@ -32,7 +31,7 @@ struct MainView: View {
                             }
                             .tag(tab.rawValue)
                     }
-                } // TabView
+                }
                 .navigationDestination(for: Screen.self) { route in
                     switch route {
                     case .home:
@@ -44,11 +43,11 @@ struct MainView: View {
                     case .notification:
                         NotificationView()
                     }
-                } // navigationDestination
+                }
                 .environmentObject(navigationVM)
                 .onOpenURL { url in
                     navigationVM.handleDeeplink(url: url)
-                } // openURL
+                }
             }
         } else {
             LoginView()

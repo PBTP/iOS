@@ -18,9 +18,8 @@ public func kakaoLoginButton(action: @escaping () -> Void) -> some View {
             .frame(height: 50)
             .frame(maxWidth: .infinity)
             .overlay {
-                HStack {
-                    Image.kakoLogo
-                    
+                HStack(spacing: 12) {
+                    Image.kakaoLogo
                     Text("카카오로 시작하기")
                         .font(.mgTitle2)
                         .foregroundStyle(Color.black)
@@ -41,24 +40,23 @@ public func appleLoginButton(action: @escaping () -> Void) -> some View {
     }
 }
 
-public func skipLoginButton(action: @escaping () -> Void) -> some View {
+public func gray400WithLineButton(_ buttonText: String, action: @escaping () -> Void) -> some View {
     Button {
-        print("로그인 없이 이용하기 버튼 클릭")
+        print("그레이 버튼 클릭")
         action()
     } label: {
-        Text("로그인 없이 둘러보기")
+        Text(buttonText)
             .font(.mgBody4)
             .foregroundStyle(Color.mongleGrayScale400)
-            .frame(maxWidth: .infinity)
     }
 }
 
-
-#Preview {
+#Preview("로그인 뷰 컴포넌트") {
     VStack(spacing: 50) {
         kakaoLoginButton {}
         appleLoginButton {}
-        skipLoginButton {}
+        gray400WithLineButton("둘러보기") {}
+        gray400WithLineButton("문의하기") {}
     }
 }
 
