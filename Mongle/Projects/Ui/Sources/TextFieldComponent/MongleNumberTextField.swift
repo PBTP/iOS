@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct MongleNumberTextField: View {
-    @State var text = ""
+    @Binding var text: String
     var placeHolder: String
     var numberKeyBoardActive: Bool
     var timerActive: Bool
@@ -17,8 +17,16 @@ public struct MongleNumberTextField: View {
     var leadingPadding: Double
     var verticalPadding: Double
     
-    public init(text: String = "", placeHolder: String = "", numberKeyBoardActive: Bool = false, timerActive: Bool = false, requestButtonActive: Bool = false, leadingPadding: Double = 16, verticalPadding: Double = 12) {
-        self.text = text
+    public init(
+        text: Binding<String>,
+        placeHolder: String = "",
+        numberKeyBoardActive: Bool = false,
+        timerActive: Bool = false,
+        requestButtonActive: Bool = false,
+        leadingPadding: Double = 16,
+        verticalPadding: Double = 12
+    ) {
+        self._text = text
         self.placeHolder = placeHolder
         self.numberKeyBoardActive = numberKeyBoardActive
         self.timerActive = timerActive
@@ -53,7 +61,7 @@ public struct MongleNumberTextField: View {
 
 #Preview {
     VStack {
-        MongleNumberTextField(placeHolder: "010-0000-0000", timerActive: false, requestButtonActive: true)
-        MongleNumberTextField(placeHolder: "업체명을 입력하세요", leadingPadding: 20, verticalPadding: 15)
+        MongleNumberTextField(text: .constant(""), placeHolder: "010-0000-0000", timerActive: false, requestButtonActive: true)
+        MongleNumberTextField(text: .constant(""), placeHolder: "업체명을 입력하세요", leadingPadding: 20, verticalPadding: 15)
     }
 }

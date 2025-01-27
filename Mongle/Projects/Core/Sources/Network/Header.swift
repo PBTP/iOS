@@ -9,5 +9,6 @@
 import Foundation
 
 public enum HeaderKey: String {
-    case authorization = "Authorization"
+    case accessToken = "Authorization"
+    case refreshToken = "RefreshToken"
 }

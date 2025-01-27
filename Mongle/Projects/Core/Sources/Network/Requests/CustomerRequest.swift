@@ -25,6 +25,6 @@ public struct CustomerRequest: Request {
             "customerName": customerName,
             "authProvider": authProvider
         ]
-        self.header = [:]
+        self.header = ["Authorization" : "Bearer \(UserSettings.accessToken)"]
     }
 }

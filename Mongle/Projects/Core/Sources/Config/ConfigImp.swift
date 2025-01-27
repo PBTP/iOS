@@ -8,7 +8,8 @@
 
 import Foundation
 
-class ConfigImp: Config {
+public class ConfigImp: Config {
+    public init() {}
     enum ConfigKey: String {
         case baseURL = "BASE_URL"
         case webBaseURL = "WEB_BASE_URL"
@@ -35,8 +36,8 @@ class ConfigImp: Config {
         return value
     }
 
-    var baseURL: String { url(forKey: .baseURL) }
-    var webBaseURL: String { url(forKey: .webBaseURL) }
+    public var baseURL: String { url(forKey: .baseURL) }
+    public var webBaseURL: String { url(forKey: .webBaseURL) }
 
     var versionNumber: String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""

@@ -87,7 +87,7 @@ public struct LoginView: View {
                     .presentationDetents([.medium])
             }
             .navigationDestination(isPresented: $isRequiredTermsAgreed) {
-                PhoneNumberVerificationView()
+                PhoneNumberVerificationView(viewModel: PhoneNumberVerificationViewModel(otpRepository: OTPRepositoryImp(baseURL: ConfigImp().baseURL.toURL(), network: NetworkImp())))
             }
         }
     }

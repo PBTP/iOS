@@ -58,6 +58,7 @@ public final class NetworkImp: Network {
             \(statusCode / 100 == 2 ? "200" : "Error") \(request.httpMethod ?? "") \(urlString) (\(statusCode))
             [Default Header]: \(self.defaultHeader)
             [Request Header]: \(request.allHTTPHeaderFields ?? [:])
+            [Request Body]: \(String(data: request.httpBody ?? Data(), encoding: .utf8))
             [Response]: \(responseString)
             ==========================================================
             """

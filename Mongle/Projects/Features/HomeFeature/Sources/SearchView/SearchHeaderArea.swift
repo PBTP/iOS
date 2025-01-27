@@ -11,6 +11,7 @@ import UI
 
 struct SearchHeaderArea: View {
     @Environment(\.presentationMode) var presentationMode
+    @State var storeName = ""
 
     var body: some View {
         HStack(spacing: 17) {
@@ -29,7 +30,7 @@ struct SearchHeaderArea: View {
     }
 
     private var searchTextField: some View {
-        MongleNumberTextField(placeHolder: "업체명을 입력하세요", leadingPadding: 17, verticalPadding: 15)
+        MongleNumberTextField(text: $storeName, placeHolder: "업체명을 입력하세요", leadingPadding: 17, verticalPadding: 15)
     }
 }
 
